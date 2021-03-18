@@ -1,0 +1,15 @@
+[
+    {
+	    "title": "CNN Top Stories",
+	    "link": "http://rss.cnn.com/rss/cnn_topstories.rss"
+    },
+    {
+	    "title": "Reddit Front Page",
+	    "link": "http://www.reddit.com/.rss"
+    },
+    {
+	    "title": "Arstechnica",
+	    "link": "http://feeds.arstechnica.com/arstechnica/index"
+    }
+    
+]
