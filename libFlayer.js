@@ -5,9 +5,9 @@ let feeds = require('./feeds.json');
 
 let linkFlayerMap = [];
 
-exports.addSource = function(source){
+exports.addSource = function(title,source){
   var linkData = {
-    title: `${source}`,
+    title: `${title}`,
     link: `${source}`
   }
   feeds.push(linkData);

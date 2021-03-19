@@ -35,5 +35,5 @@ client.on('message', message => {
 });
 
 console.log("Link Flayer Bot Activating");
-client.login(token);
-libFlayer.loadFeeds();
+client.login(token);                    //Load Client Discord Token
+libFlayer.loadFeeds();                  //Load Configured Feeds

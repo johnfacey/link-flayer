@@ -9,9 +9,10 @@ module.exports = {
             message.reply(`Please use in !get [number] format`);
           return;
         }
-        var command = args[0];
-        var param1 = args[1];
-        libFlayer.addSource(param1);      
+        var title = args[0];
+        var link = args[1];
+
+        libFlayer.addSource(title,link);      
         libFlayer.loadFeeds();
 
 	},

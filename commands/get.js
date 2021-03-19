@@ -6,7 +6,7 @@ module.exports = {
     execute(message, args) {
 
         if (args.length < 1) {
-            message.reply(`Please use in !get [number] format`);
+            message.reply(`Use !get [number] Ex: !get 25`);
             return;
         }
         var search = args[0];
