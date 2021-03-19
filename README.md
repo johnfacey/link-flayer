@@ -39,7 +39,7 @@ Example: feeds.json
 
 **Usage**
 
-- *npm start*
+- *npm run start* or *node index.js*
 
 
 
