@@ -6,7 +6,7 @@ module.exports = {
 	execute(message,args) {
         
         if (args.length < 2) {
-            message.reply(`Please use in !get [number] format`);
+            message.reply(`Please use in !add [title] [https://domain.com/feed.xml] format`);
           return;
         }
         var title = args[0];
