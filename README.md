@@ -4,7 +4,7 @@
 
 Link Flayer is a Discord Bot designed to provide your Discord server with news.
 
-**Setup** 
+## Setup
 
 - *npm install link-flayer* or *git clone https://github.com/johnfacey/link-flayer.git*
 - Add your token from Discord Bot Interface to the *config.json* [https://discord.com/developers/applications/]
@@ -16,7 +16,8 @@ Example: config.json
 }
 </pre>
 
-- Configure your feeds.json: Each node with a "title" and "link" attribute.
+## Configure your feeds.json: 
+Each node with a "title" and "link" attribute.
 
 <pre>
 Example: feeds.json 
@@ -37,13 +38,13 @@ Example: feeds.json
 ]
 </pre>
 
-**Usage**
+## Usage
 
 - *npm run start* or *node index.js*
 
 
 
-**Available Commands**
+## Available Commands
 	
 * **!help** - Lists the available commands: *!help*
 
