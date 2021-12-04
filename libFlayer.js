@@ -5,6 +5,8 @@ let feeds = require('./feeds.json');
 
 let linkFlayerMap = [];
 
+const { quotes } = require('./quotes.json');
+
 exports.addSource = function(title,source){
   var linkData = {
     title: `${title}`,
@@ -45,4 +47,8 @@ exports.getFeeds = function () {
 exports.getSources = function () {
   return feeds;
 
+}
+
+exports.getQuotes = function () {
+  return quotes;
 }
