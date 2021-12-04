@@ -3,10 +3,11 @@ var libFlayer = require("../libFlayer.js");
 module.exports = {
 	name: 'exit',
 	description: 'Exit',
-	execute(message) {
+	async execute(message) {
 		message.reply(
-			`!Goodbye world - someone respawn my process`
+			`Goodbye world - Disconnection imminent.`
 		);
+		await libFlayer.sleep(5000);
         await new Promise(resolve => setTimeout(process.exit(), 5000));
 	}
 };

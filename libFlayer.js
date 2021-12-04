@@ -15,6 +15,8 @@ exports.addSource = function(title,source){
   feeds.push(linkData);
 }
 
+exports.sleep = (ms) => new Promise((resolve) => { setTimeout(resolve, ms); })
+
 exports.loadFeeds = function() {
     linkFlayerMap = [];
     feeds.forEach(feedBlock => {
@@ -30,10 +32,7 @@ exports.loadFeeds = function() {
                 }
                 linkFlayerMap.push(linkData);
               });
-            })
-
-            
-            
+            }) 
           })().then();
     });
 
@@ -41,12 +40,10 @@ exports.loadFeeds = function() {
 
 exports.getFeeds = function () {
     return linkFlayerMap;
-
 }
 
 exports.getSources = function () {
   return feeds;
-
 }
 
 exports.getQuotes = function () {

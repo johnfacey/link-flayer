@@ -12,7 +12,9 @@ module.exports = {
         var title = args[0];
         var link = args[1];
 
-        libFlayer.addSource(title,link);      
+        libFlayer.addSource(title,link); 
+        message.reply(
+          `Adding ${title} to the list of RSS sources`);   
         libFlayer.loadFeeds();
 
 	},
