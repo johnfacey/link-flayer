@@ -10,6 +10,25 @@
     {
 	    "title": "Arstechnica",
 	    "link": "http://feeds.arstechnica.com/arstechnica/index"
-    }
-    
+    },
+    {
+	    "title": "TechCrunchGadgets",
+	    "link": "https://techcrunch.com/gadgets/feed/"
+    },
+    {
+	    "title": "BusinessInsider",
+	    "link": "https://markets.businessinsider.com/rss/news"
+    },
+    {
+	    "title": "TheGuardian",
+	    "link": "https://www.theguardian.com/world/rss"
+    },
+    {
+	    "title": "Yahoo",
+	    "link": "https://news.google.com/news/rss"
+    },
+    {
+	    "title": "CBSWorldNews",
+	    "link": "https://www.cbsnews.com/latest/rss/world"
+    }    
 ]
