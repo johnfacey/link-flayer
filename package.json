@@ -11,7 +11,11 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "push": "git push heroku main",
+    "restart": "heroku dyno:restart",
+    "tail": "heroku logs --tail",
+    "local": "heroku local web"
   },
   "author": "John Facey",
   "license": "ISC"
