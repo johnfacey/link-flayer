@@ -5,6 +5,7 @@ token = process.env.TOKEN;
 const { quotes } = require('./quotes.json');
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const PORT = process.env.PORT || 3000;
 client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
@@ -40,3 +41,16 @@ client.on('message', message => {
 console.log("Link Flayer Bot Activating");
 client.login(token);                    //Load Client Discord Token
 libFlayer.loadFeeds();                  //Load Configured Feeds
+
+const express = require("express");
+const server = express();
+server.all("/",(req, res) => {
+	res.send("Bot is Ready");
+});
+
+function keepAlive() {
+	server.listen(PORT, () =>  {
+		console.log("Keep Alive Server Running");
+	})
+}
+
