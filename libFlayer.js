@@ -1,8 +1,9 @@
 let Parser = require('rss-parser');
 let parser = new Parser();
 let feeds = require('./feeds.json');
-
-
+var jsonfile = require('jsonfile');
+var fs = require('fs');
+var file = ('./feeds.json');
 let linkFlayerMap = [];
 
 const { quotes } = require('./quotes.json');
@@ -13,6 +14,7 @@ exports.addSource = function(title,source){
     link: `${source}`
   }
   feeds.push(linkData);
+
 }
 
 exports.sleep = (ms) => new Promise((resolve) => { setTimeout(resolve, ms); })
@@ -38,6 +40,18 @@ exports.loadFeeds = function() {
 
 }
 
+
+exports.writeFeed = function (feeds) {
+    
+    jsonfile.writeFile(file, feeds, function (err) {
+        if (err != null) {
+            console.error(err);
+        }
+    });
+
+    console.log("saving feeds.json");
+
+};
 exports.getFeeds = function () {
     return linkFlayerMap;
 }
