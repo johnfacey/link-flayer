@@ -8,6 +8,8 @@ const client = new Discord.Client();
 const PORT = process.env.PORT || 3000;
 const express = require("express");
 const server = express();
+var libFlayer = require("./libFlayer.js");
+
 server.all("/",(req, res) => {
 	res.send("Bot is Ready");
 });
@@ -15,6 +17,9 @@ server.all("/",(req, res) => {
 function keepAlive() {
 	server.listen(PORT, () =>  {
 		console.log("Keep Alive Server Running");
+
+        libFlayer.loadFeeds();
+		libFlayer.feedArray = libFlayer.getFeeds();
 	})
 }
 
@@ -27,7 +32,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-var libFlayer = require("./libFlayer.js");
+
 let linkFlayerMap = [];
 
 client.on('ready', () => {
