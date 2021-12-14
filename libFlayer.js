@@ -13,6 +13,12 @@ exports.addSource = function(title,source){
     title: `${title}`,
     link: `${source}`
   }
+
+  for (i=0; i<feeds.length; i++){
+    if (feeds[i].link == source){
+      return;
+    }
+  }
   feeds.push(linkData);
 
 }

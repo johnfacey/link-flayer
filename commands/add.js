@@ -14,7 +14,8 @@ module.exports = {
 
         libFlayer.addSource(title,link); 
         message.reply(`Adding ${title} to the list of RSS sources`);
-        libFlayer.writeFeed();   
+        var sources = libFlayer.getSources();
+        libFlayer.writeFeed(sources);   
         libFlayer.loadFeeds();
 
 	},
