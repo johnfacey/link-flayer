@@ -11,18 +11,19 @@ const server = express();
 var libFlayer = require("./libFlayer.js");
 
 server.all("/",(req, res) => {
-	res.send("Bot is Ready - Sources loading");
+	var htmlOutput = `"Bot is Ready - Sources loading <br />"`;
+
 	var sources = libFlayer.getSources();
 	sources.forEach(source => {
-		res.send(`
+		htmlOutput +=`
 			<div style='margin-bottom:15px;'>
 
 				<div> Title: ${source.title} </div>
 				<div> Link: ${source.link} </div>
 
-			</div>
-		`);
+			</div>`		
 	  });
+	  res.send(htmlOutput);
 
 });
 
