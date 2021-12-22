@@ -6,6 +6,7 @@ module.exports = {
 	execute(message) {
 		message.reply(
 			`!help - Lists the available commands
+			**!key** - Testing remote Airtable: *!key url*
 			**!search** - Searches the RSS Sources: *!search google*
 			**!get** - Retrieves Search By Index: *!get 25*
 			**!add** - Add a new RSS Source Feed dynamically: *!add http://www.engadget.com/rss.xml*
