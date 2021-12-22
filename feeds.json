@@ -1,34 +1,52 @@
-[
-    {
-	    "title": "CNN Top Stories",
-	    "link": "http://rss.cnn.com/rss/cnn_topstories.rss"
-    },
-    {
-	    "title": "Reddit Front Page",
-	    "link": "http://www.reddit.com/.rss"
-    },
-    {
-	    "title": "Arstechnica",
-	    "link": "http://feeds.arstechnica.com/arstechnica/index"
-    },
-    {
-	    "title": "TechCrunchGadgets",
-	    "link": "https://techcrunch.com/gadgets/feed/"
-    },
-    {
-	    "title": "BusinessInsider",
-	    "link": "https://markets.businessinsider.com/rss/news"
-    },
-    {
-	    "title": "TheGuardian",
-	    "link": "https://www.theguardian.com/world/rss"
-    },
-    {
-	    "title": "Yahoo",
-	    "link": "https://news.google.com/news/rss"
-    },
-    {
-	    "title": "CBSWorldNews",
-	    "link": "https://www.cbsnews.com/latest/rss/world"
-    }    
+[{
+    "title": "CNN Top Stories",
+    "link": "http://rss.cnn.com/rss/cnn_topstories.rss",
+    "category": "news"
+}, {
+    "title": "Reddit Front Page",
+    "link": "http://www.reddit.com/.rss",
+    "category": "news"
+}, {
+    "title": "Arstechnica",
+    "link": "http://feeds.arstechnica.com/arstechnica/index",
+    "category": "tech"
+}, {
+    "title": "TechCrunchGadgets",
+    "link": "https://techcrunch.com/gadgets/feed/",
+    "category": "tech"
+}, {
+    "title": "BusinessInsider",
+    "link": "https://markets.businessinsider.com/rss/news",
+    "category": "business"
+}, {
+    "title": "TheGuardian",
+    "link": "https://www.theguardian.com/world/rss",
+    "category": "news"
+}, {
+    "title": "Yahoo",
+    "link": "https://news.google.com/news/rss",
+    "category": "news"
+}, {
+    "title": "CBSWorldNews",
+    "link": "https://www.cbsnews.com/latest/rss/world",
+    "category": "news"
+}, {
+    "title": "ESPN",
+    "link": "https://www.espn.com/espn/rss/news",
+    "category": "sports"
+},{
+    "title": "Salesforce Developer",
+    "link": "https://developer.salesforce.com/blogs/feed",
+    "category": "tech"
+},
+{
+    "title": "BloodyDisgusting",
+    "link": "https://bloody-disgusting.com/feed",
+    "category": "entertainment"
+},
+{
+    "title": "ScreenRant",
+    "link": "https://screenrant.com/feed",
+    "category": "entertainment"
+}
 ]
