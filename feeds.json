@@ -1,11 +1,11 @@
 [{
     "title": "CNN Top Stories",
     "link": "http://rss.cnn.com/rss/cnn_topstories.rss",
-    "category": "news"
+    "category": "general"
 }, {
     "title": "Reddit Front Page",
     "link": "http://www.reddit.com/.rss",
-    "category": "news"
+    "category": "general"
 }, {
     "title": "Arstechnica",
     "link": "http://feeds.arstechnica.com/arstechnica/index",

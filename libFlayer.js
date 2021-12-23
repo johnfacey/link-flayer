@@ -36,7 +36,8 @@ exports.loadFeeds = function() {
 
                 var linkData = {
                   title: `${unescape(item.title)}`,
-                  link: `${unescape(item.link)}`
+                  link: `${unescape(item.link)}`,
+                  category: `${unescape(item.category)}`
                 }
                 linkFlayerMap.push(linkData);
               });
@@ -58,8 +59,18 @@ exports.writeFeed = function (feeds) {
     console.log("saving feeds.json");
 
 };
-exports.getFeeds = function () {
-    return linkFlayerMap;
+exports.getFeeds = function (feedType) {
+    if (feedType == null || feedType == undefined || feedType == "") {
+      return linkFlayerMap;
+    } else {
+      var linkFlayerFilteredMap = [];
+      linkFlayerMap.forEach(linkFlay => {
+        if (linkFlay.category.toLowerCase().indexOf(feedType.toLowerCase()) > -1) {
+          linkFlayerFilteredMap.push(linkFlay);
+        }
+      });
+      return linkFlayerFilteredMap;
+    }
 }
 
 exports.getSources = function () {
