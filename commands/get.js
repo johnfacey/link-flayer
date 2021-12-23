@@ -10,9 +10,9 @@ module.exports = {
             return;
         }
         var search = args[0];
-
+        var catName = "All";
         var feedArray = libFlayer.getFeeds();
-        message.reply(`Retrieving: [Link](${feedArray[search].link})`);
+        message.reply(`Retrieving: [${catName}] (${feedArray[search].link})`);
 
     }
 };
