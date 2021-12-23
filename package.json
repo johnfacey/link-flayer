@@ -16,6 +16,7 @@
     "start": "node index.js",
     "push": "git push heroku main",
     "restart": "heroku dyno:restart",
+    "stop": "heroku dyno:stop",
     "tail": "heroku logs --tail",
     "local": "heroku local web"
   },

@@ -37,7 +37,7 @@ exports.loadFeeds = function() {
                 var linkData = {
                   title: `${unescape(item.title)}`,
                   link: `${unescape(item.link)}`,
-                  category: `${unescape(item.category)}`
+                  category: `${unescape(feedBlock.category)}`
                 }
                 linkFlayerMap.push(linkData);
               });
@@ -60,10 +60,11 @@ exports.writeFeed = function (feeds) {
 
 };
 exports.getFeeds = function (feedType) {
+  var linkFlayerFilteredMap = [];
     if (feedType == null || feedType == undefined || feedType == "") {
       return linkFlayerMap;
     } else {
-      var linkFlayerFilteredMap = [];
+      
       linkFlayerMap.forEach(linkFlay => {
         if (linkFlay.category.toLowerCase().indexOf(feedType.toLowerCase()) > -1) {
           linkFlayerFilteredMap.push(linkFlay);
