@@ -95,7 +95,7 @@ exports.getAnswer = async function (question) {
       console.log(response.data.RelatedTopics[0].Text);
       console.log(response.data.RelatedTopics[0].FirstURL);
 
-      if (response.data.Entity == "company") {
+      if (response.data.Abstract != "") {
         answerData = {
           text: `${unescape(response.data.Abstract)}`,
           source: `${unescape(response.data.AbstractSource)}`
