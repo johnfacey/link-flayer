@@ -2,6 +2,7 @@ const fs = require('fs');
 const { prefix } = require('./config.json');
 require('dotenv').config();
 token = process.env.TOKEN;
+
 const { quotes } = require('./quotes.json');
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -30,7 +31,7 @@ server.all("/",(req, res) => {
 function keepAlive() {
 	server.listen(PORT, () =>  {
 		console.log("Keep Alive Server Running");
-
+		libFlayer.getConfig();
         libFlayer.loadFeeds();
 		libFlayer.feedArray = libFlayer.getFeeds();
 	})

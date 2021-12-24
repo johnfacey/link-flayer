@@ -4,6 +4,7 @@
   "description": "Discord RSS News Bot",
   "main": "index.js",
   "dependencies": {
+    "airtable": "^0.11.1",
     "axios": "^0.24.0",
     "discord.js": "^12.5.1",
     "dotenv": "^10.0.0",

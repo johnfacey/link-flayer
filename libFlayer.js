@@ -1,31 +1,83 @@
 let Parser = require('rss-parser');
 const axios = require('axios');
 let parser = new Parser();
-let feeds = require('./feeds.json');
+
+var feeds = [];
 var jsonfile = require('jsonfile');
 var fs = require('fs');
 var file = ('./feeds.json');
+var Airtable = require('airtable');
+
+var apiKey=process.env.KEY;
+var userBase=process.env.BASE;
+var userTable =process.env.TABLE
+
+token = process.env.TOKEN;
+var base = new Airtable({apiKey: apiKey}).base(userBase);
+
 let linkFlayerMap = [];
 let answerData = {
   text: ``,
   source: ``
 }
+
 const { quotes } = require('./quotes.json');
 
-exports.addSource = function(title,source){
-  var linkData = {
-    title: `${title}`,
-    link: `${source}`
-  }
+exports.addSource = function(title,link,category){
 
   for (i=0; i<feeds.length; i++){
-    if (feeds[i].link == source){
+    if (feeds[i].link == link){
       return;
     }
   }
-  feeds.push(linkData);
+
+  base(userTable).create([
+    {
+      "fields": {
+        "title": title,
+        "link": link,
+        "category": category
+      }
+    }
+  ], function(err, record) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+      console.log(record.getId());
+
+      var linkData = {
+        title: `${title}`,
+        link: `${link}`,
+        category: `${category}`,
+        id: record.getId()
+      }
+
+      feeds.push(linkData);
+
+  });
+
+
 
 }
+
+exports.deleteSource = function(title) {
+  var deleteRecord = "";
+  for (i=0; i<feeds.length; i++){
+    if (feeds[i].title == title){
+      deleteRecord = feeds[i].id;
+    }
+  }
+  base(userTable).destroy(deleteRecord, function(err, deletedRecord) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    console.log(deletedRecord.id);
+  });
+}
+
 
 exports.sleep = (ms) => new Promise((resolve) => { setTimeout(resolve, ms); })
 
@@ -39,9 +91,10 @@ exports.loadFeeds = function() {
               feed.items.forEach(item => {
 
                 var linkData = {
-                  title: `${unescape(item.title)}`,
-                  link: `${unescape(item.link)}`,
-                  category: `${unescape(feedBlock.category)}`
+                  title: `${item.title}`,
+                  link: `${item.link}`,
+                  category: `${feedBlock.category}`,
+                  id: record.getId()
                 }
                 linkFlayerMap.push(linkData);
               });
@@ -51,18 +104,6 @@ exports.loadFeeds = function() {
 
 }
 
-
-exports.writeFeed = function (feeds) {
-    
-    jsonfile.writeFile(file, feeds, function (err) {
-        if (err != null) {
-            console.error(err);
-        }
-    });
-
-    console.log("saving feeds.json");
-
-};
 exports.getFeeds = function (feedType) {
   var linkFlayerFilteredMap = [];
     if (feedType == null || feedType == undefined || feedType == "") {
@@ -84,6 +125,32 @@ exports.getSources = function () {
 
 exports.getQuotes = function () {
   return quotes;
+}
+
+exports.getConfig = function() {
+  feeds = [];
+  base(userTable)
+            .select().eachPage(function page(records, fetchNextPage) {
+
+              records.forEach(function(record) {
+                console.log('Retrieved title: ', record.get('title'));
+                console.log('Retrieved link:', record.get('link'));
+                console.log('Retrieved category:', record.get('category'));
+
+                var linkData = {
+                  title: `${record.get('title')}`,
+                  link: `${record.get('link')}`,
+                  category: `${record.get('category')}`
+                }
+
+                feeds.push(linkData);
+              
+            });
+            return;
+              //fetchNextPage();
+          }, function done(error) {
+              console.log(error);
+          });
 }
 
 exports.getAnswer = async function (question) {
@@ -113,3 +180,5 @@ exports.getAnswer = async function (question) {
     });
     return answerData;
 }
+
+this.getConfig();
