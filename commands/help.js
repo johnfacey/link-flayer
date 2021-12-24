@@ -15,6 +15,7 @@ module.exports = {
 			**!quote** - Selects a random quote: *!quote*
 			**!random** - Selects a random article: *!random*
 			**!random category** - Selects a random article by category: *!random sports*
+			**!answer** - Instant Live Search: *!answer salesforce*
 			`
 		);
 	}
