@@ -1,11 +1,15 @@
 let Parser = require('rss-parser');
+const axios = require('axios');
 let parser = new Parser();
 let feeds = require('./feeds.json');
 var jsonfile = require('jsonfile');
 var fs = require('fs');
 var file = ('./feeds.json');
 let linkFlayerMap = [];
-
+let answerData = {
+  text: ``,
+  source: ``
+}
 const { quotes } = require('./quotes.json');
 
 exports.addSource = function(title,source){
@@ -80,4 +84,32 @@ exports.getSources = function () {
 
 exports.getQuotes = function () {
   return quotes;
+}
+
+exports.getAnswer = async function (question) {
+
+  var answerURL = `https://api.duckduckgo.com/?q=${question}&format=json&pretty=1`;
+  console.log(answerURL);
+    await axios.get(answerURL)
+    .then(response => {
+      console.log(response.data.RelatedTopics[0].Text);
+      console.log(response.data.RelatedTopics[0].FirstURL);
+
+      if (response.data.Entity == "company") {
+        answerData = {
+          text: `${unescape(response.data.Abstract)}`,
+          source: `${unescape(response.data.AbstractSource)}`
+        }
+      } else {
+        answerData = {
+          text: `${unescape(response.data.RelatedTopics[0].Text)}`,
+          source: `${unescape(response.data.RelatedTopics[0].FirstURL)}`
+        }
+      }
+     
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    return answerData;
 }

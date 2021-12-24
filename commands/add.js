@@ -18,5 +18,5 @@ module.exports = {
         libFlayer.writeFeed(sources);   
         libFlayer.loadFeeds();
 
-	},
+	}
 };
