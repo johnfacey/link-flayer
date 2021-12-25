@@ -134,8 +134,8 @@ exports.loadFeeds = function() {
           try {
             const feed = parser.parseURL(feedBlock.link, function(err, feed) {
               if (err) {
-                console.log(err);
-                return;
+                console.log(err + " " + feedBlock.link);
+                //return;
               }
               console.log(feed.title);
               feed.items.forEach(item => {
