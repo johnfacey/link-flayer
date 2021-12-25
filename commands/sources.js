@@ -8,7 +8,7 @@ module.exports = {
         var sourceArray = libFlayer.getSources();
         var sourceString = "";
         sourceArray.forEach(source => {
-            sourceString +=`[${source.title}](${source.link}) `;
+            sourceString +=`[${source.title}](${source.link}) \n`;
         });
         message.reply(sourceString);
 

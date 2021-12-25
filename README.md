@@ -2,47 +2,26 @@
 
 **Discord RSS News Bot**
 
-Link Flayer is a Discord Bot designed to provide your Discord server with news.
+Link Flayer is a Discord Bot designed to provide your Discord server with RSS Newsfeeds Instant Web Searches and more.
 
 ## Setup
 
-- *npm install link-flayer* or *git clone https://github.com/johnfacey/link-flayer.git*
+- If installing the npm or source *npm install link-flayer* or *git clone https://github.com/johnfacey/link-flayer.git*
 - Add your token from Discord Bot Interface to the *config.json* [https://discord.com/developers/applications/]
-<pre>
-Example: config.json 
-{
-	"prefix": "!",
-	"token": "{Your Discord Bot Token Here}"
-}
-</pre>
+- Setup has been moved from config file to environment variables to assume bot runs from one instance
 
 ## Configure your feeds.json: 
-Each node with a "title" and "link" attribute.
+Each node with a "title", "link", category attribute to be used from an Airtable. 
+Setting up Airtable for multiple Discord severs still in progress. 
+It should be assumed every server will need its own Airtable Base and the coresponding apiKey, base and table name.
 
-<pre>
-Example: feeds.json 
-[
-    {
-	    "title": "CNN Top Stories",
-	    "link": "http://rss.cnn.com/rss/cnn_topstories.rss"
-    },
-    {
-	    "title": "Reddit Front Page",
-	    "link": "http://www.reddit.com/.rss"
-    },
-    {
-	    "title": "Arstechnica",
-	    "link": "http://feeds.arstechnica.com/arstechnica/index"
-    }
-    
-]
-</pre>
+![Airtable](./assets/airtable.png)
 
 ## Usage
 
-- *npm run start* or *node index.js*
-
-
+- If using the bot running already from its instance this setup will come later with multiple server profiles. Refer to the above for authorizing a bot to your server.
+- Running from source *npm run start* or *node index.js*
+- Can be added to any discord server with admin access and this oAuth link https://discord.com/api/oauth2/authorize?client_id=820809725398089779&permissions=2048&scope=bot
 
 ## Available Commands
 	
@@ -55,4 +34,12 @@ Example: feeds.json
 * **!add** - Add a new RSS Source Feed dynamically: *!add http://www.engadget.com/rss.xml*
 
 * **!update** - Updates all current RSS Feeds: *!update*
+
+* **!quote** - Selects a random quote: *!quote*
+
+* **!random** - Selects a random article: *!random*
+
+* **!random category** - Selects a random article by category: *!random sports*
+
+* **!answer** - Instant Live Search: *!answer salesforce*
 

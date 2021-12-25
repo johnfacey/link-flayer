@@ -12,7 +12,7 @@ const server = express();
 var libFlayer = require("./libFlayer.js");
 
 server.all("/",(req, res) => {
-	var htmlOutput = `"Bot is Ready - Sources loading <br />"`;
+	var htmlOutput = "Bot is Ready - Sources loading <br />";
 
 	var sources = libFlayer.getSources();
 	sources.forEach(source => {
