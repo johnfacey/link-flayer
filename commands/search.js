@@ -12,8 +12,7 @@ module.exports = {
 
         var search = args[0];
         var found = false;
-        message.reply('Searching for: ' + search);
-
+    
         let i = 0;
         let iSave = 0
         let count = 0;
@@ -37,10 +36,6 @@ module.exports = {
             //message.channel.send('!get '+iSave);
         }
 
-        if (count > 0) {
-            message.channel.send(`Displayed results for: ${search}`);
-        }
-        
         if (!found) {
             message.reply(`No results found for: ${search}`);
         }

@@ -81,29 +81,6 @@ exports.deleteSource = function(title) {
 
 exports.sleep = (ms) => new Promise((resolve) => { setTimeout(resolve, ms); })
 
-exports.loadFeeds = function() {
-    linkFlayerMap = [];
-    feeds.forEach(feedBlock => {
-        (async () => {
-            const feed = parser.parseURL(feedBlock.link, function(err, feed) {
-              if (err) throw err;
-              console.log(feed.title);
-              feed.items.forEach(item => {
-
-                var linkData = {
-                  title: `${item.title}`,
-                  link: `${item.link}`,
-                  category: `${feedBlock.category}`,
-                  id: record.getId()
-                }
-                linkFlayerMap.push(linkData);
-              });
-            }) 
-          })().then();
-    });
-
-}
-
 exports.getFeeds = function (feedType) {
   var linkFlayerFilteredMap = [];
     if (feedType == null || feedType == undefined || feedType == "") {
@@ -127,25 +104,57 @@ exports.getQuotes = function () {
   return quotes;
 }
 
-exports.getConfig = function() {
+exports.loadFeeds = function() {
   feeds = [];
   base(userTable)
             .select().eachPage(function page(records, fetchNextPage) {
-
+              try {
               records.forEach(function(record) {
                 console.log('Retrieved title: ', record.get('title'));
                 console.log('Retrieved link:', record.get('link'));
                 console.log('Retrieved category:', record.get('category'));
 
-                var linkData = {
-                  title: `${record.get('title')}`,
-                  link: `${record.get('link')}`,
-                  category: `${record.get('category')}`
+                var feedData = {
+                  title: `${unescape(record.get('title'))}`,
+                  link: `${unescape(record.get('link'))}`,
+                  category: `${unescape(record.get('category'))}`,
+                  id: record.getId()
                 }
 
-                feeds.push(linkData);
-              
+                feeds.push(feedData);
+   
             });
+          } catch (error) {
+            console.log(error);
+          }
+            
+            linkFlayerMap = [];
+    feeds.forEach(feedBlock => {
+        (async () => {
+          try {
+            const feed = parser.parseURL(feedBlock.link, function(err, feed) {
+              if (err) {
+                console.log(err);
+                return;
+              }
+              console.log(feed.title);
+              feed.items.forEach(item => {
+                
+                var linkData = {
+                  title: `${unescape(item.title)}`,
+                  link: `${unescape(item.link)}`,
+                  category: `${unescape(feedBlock.category)}`
+                }
+                linkFlayerMap.push(linkData);
+              
+              });
+            
+            }) 
+          } catch (error) {
+            console.log(error);
+          }
+          })().then();
+    });
             return;
               //fetchNextPage();
           }, function done(error) {
@@ -181,4 +190,3 @@ exports.getAnswer = async function (question) {
     return answerData;
 }
 
-this.getConfig();

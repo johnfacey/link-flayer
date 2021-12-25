@@ -21,7 +21,6 @@ module.exports = {
         }
         
         var sources = libFlayer.getSources();  
-        //libFlayer.getConfig();
         libFlayer.loadFeeds();
 
 	}
