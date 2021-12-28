@@ -166,13 +166,21 @@ exports.loadFeeds = function () {
               }
               console.log(feed.title);
               feed.items.forEach(item => {
+                var foundFeed = false;
+                linkFlayerMap.forEach(linkFlay => {
+                  if (linkFlay.link == item.link) {
+                    foundFeed = true;
+                  }
+                });
 
-                var linkData = {
-                  title: `${unescape(item.title)}`,
-                  link: `${unescape(item.link)}`,
-                  category: `${unescape(feedBlock.category)}`
+                if (!foundFeed) {
+                  var linkData = {
+                    title: `${unescape(item.title)}`,
+                    link: `${unescape(item.link)}`,
+                    category: `${unescape(feedBlock.category)}`
+                  }
+                  linkFlayerMap.push(linkData);
                 }
-                linkFlayerMap.push(linkData);
 
               });
 
@@ -193,7 +201,7 @@ exports.getAnswer = async function (question) {
 
   var answerURL = `https://api.duckduckgo.com/?q=${question}&format=json&pretty=1`;
   console.log(answerURL);
-   answerData = {
+  answerData = {
     text: ``,
     source: ``
   }
@@ -249,6 +257,6 @@ exports.getCategories = function () {
  * sleep - sleep/wait
  * @constructor
  */
- exports.sleep = (ms) => new Promise((resolve) => {
+exports.sleep = (ms) => new Promise((resolve) => {
   setTimeout(resolve, ms);
 })
