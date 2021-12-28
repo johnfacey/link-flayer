@@ -128,13 +128,19 @@ exports.loadFeeds = function () {
           console.log('Retrieved title: ', record.get('title'));
           console.log('Retrieved link:', record.get('link'));
           console.log('Retrieved category:', record.get('category'));
-
+      
           var feedData = {
             title: `${unescape(record.get('title'))}`,
             link: `${unescape(record.get('link'))}`,
             category: `${unescape(record.get('category'))}`,
             id: record.getId()
           }
+
+          feeds.forEach(feedBlock => {
+            if (feedBlock.link == feedData.link) {
+              return;
+            }
+          });
 
           feeds.push(feedData);
 
@@ -159,13 +165,14 @@ exports.loadFeeds = function () {
       feeds.forEach(feedBlock => {
         (async () => {
           try {
-            const feed = parser.parseURL(feedBlock.link, function (err, feed) {
+            let linkFeed = parser.parseURL(feedBlock.link, function (err, feed) {
               if (err) {
                 console.log(err + " " + feedBlock.link);
                 //return;
               }
               console.log(feed.title);
-              feed.items.forEach(item => {
+
+              linkFeed.items.forEach(item => {
                 var foundFeed = false;
                 linkFlayerMap.forEach(linkFlay => {
                   if (linkFlay.link == item.link) {
