@@ -10,7 +10,7 @@ module.exports = {
             return;
         }
 
-        var search = args[0];
+        var search = args.join(" ");
         var found = false;
     
         let i = 0;
