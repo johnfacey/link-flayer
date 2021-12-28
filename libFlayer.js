@@ -212,7 +212,7 @@ exports.getAnswer = async function (question) {
   var answerURL = `https://api.duckduckgo.com/?q=${question}&format=json&pretty=1`;
   console.log(answerURL);
   answerData = {
-    text: ``,
+    text: `No answer found try using a simpler search term`,
     source: ``
   }
   await axios.get(answerURL)
