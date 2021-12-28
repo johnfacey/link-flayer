@@ -11,7 +11,7 @@ Link Flayer is a Discord Bot designed to provide your Discord server with RSS Ne
 - Setup has been moved from config file to environment variables to assume bot runs from one instance
 
 ## Configure your feeds.json: 
-Each node with a "title", "link", category attribute to be used from an Airtable. 
+Each node with a "title", "link", "category" attribute to be used from an Airtable columns. 
 Setting up Airtable for multiple Discord severs still in progress. 
 It should be assumed every server will need its own Airtable Base and the coresponding apiKey, base and table name.
 

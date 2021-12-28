@@ -3,9 +3,11 @@ var libFlayer = require("../libFlayer.js");
 module.exports = {
 	name: 'categories',
 	description: 'Categories',
-	async execute(message) {
+	execute(message) {
+		var cats = libFlayer.getCategories();
+	
 		message.reply(
-			`Categories: [General, Entertainment, Sports, Tech]`
+			`Categories: [${cats.join(', ')}]`
 		);
 	}
 };

@@ -11,8 +11,11 @@ const express = require("express");
 const server = express();
 var libFlayer = require("./libFlayer.js");
 
+
+let linkFlayerMap = [];
+
 server.all("/",(req, res) => {
-	var htmlOutput = "Bot is Ready - Sources loading <br />";
+	var htmlOutput = "LinkFlayer Bot is Ready - Sources loading <br />";
 
 	var sources = libFlayer.getSources();
 	sources.forEach(source => {
@@ -21,8 +24,15 @@ server.all("/",(req, res) => {
 
 				<div> Title: ${source.title} </div>
 				<div> Link: ${source.link} </div>
+				<div> category: ${source.category} </div>
 
-			</div>`		
+			</div>
+			<div>
+				<hr />
+
+			</div>
+
+			`		
 	  });
 	  res.send(htmlOutput);
 
@@ -44,9 +54,6 @@ for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
 }
-
-
-let linkFlayerMap = [];
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
