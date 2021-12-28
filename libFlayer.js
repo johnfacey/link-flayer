@@ -122,13 +122,14 @@ exports.loadFeeds = function () {
   linkFlayerCats = [];
 
   base(userTable)
-    .select().eachPage(function page(records, fetchNextPage) {
+    .select().firstPage(function(err, records) {
       try {
         records.forEach(function (record) {
           console.log('Retrieved title: ', record.get('title'));
           console.log('Retrieved link:', record.get('link'));
           console.log('Retrieved category:', record.get('category'));
-      
+        
+
           var feedData = {
             title: `${unescape(record.get('title'))}`,
             link: `${unescape(record.get('link'))}`,
@@ -136,13 +137,15 @@ exports.loadFeeds = function () {
             id: record.getId()
           }
 
+          var foundMatch = false;
           feeds.forEach(feedBlock => {
             if (feedBlock.link == feedData.link) {
-              return;
+              foundMatch = true;
             }
           });
-
-          feeds.push(feedData);
+          if (!foundMatch) {
+            feeds.push(feedData);
+          }
 
           let foundCat = false;
           linkFlayerCats.forEach(cat => {
@@ -165,14 +168,14 @@ exports.loadFeeds = function () {
       feeds.forEach(feedBlock => {
         (async () => {
           try {
-            let linkFeed = parser.parseURL(feedBlock.link, function (err, feed) {
+            const feed = parser.parseURL(feedBlock.link, function (err, feed) {
               if (err) {
                 console.log(err + " " + feedBlock.link);
                 //return;
               }
               console.log(feed.title);
-
-              linkFeed.items.forEach(item => {
+              
+              feed.items.forEach(item => {
                 var foundFeed = false;
                 linkFlayerMap.forEach(linkFlay => {
                   if (linkFlay.link == item.link) {
