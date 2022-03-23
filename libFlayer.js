@@ -240,7 +240,7 @@ exports.getAnswer = async function (question) {
 }
 
 /**
- * getQuotes - Returns libFlayer feed sources
+ * getSources - Returns libFlayer feed sources
  * @constructor
  */
 exports.getSources = function () {
@@ -251,8 +251,24 @@ exports.getSources = function () {
  * getQuotes - Returns libFlayer feed quotes
  * @constructor
  */
-exports.getQuotes = function () {
-  return quotes;
+exports.getQuotes =  async function (quote_url) {
+  //const response = await fetch(quote_url);
+  //var data = await response.json();
+  //console.log(data);
+  //return data;
+var data = [];
+  await axios.get(quote_url)
+    .then(response => {
+      console.log(response.data[0].q);
+      console.log(response.data[0].a);
+      data = response.data;
+  
+      return data;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    return data;
 }
 
 /**
