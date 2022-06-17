@@ -239,6 +239,33 @@ exports.getAnswer = async function (question) {
   return answerData;
 }
 
+exports.getSlang = async function (question) {
+
+  var answerURL = `https://api.urbandictionary.com/v0/define?term=${question}`;
+  console.log(answerURL);
+  slangData = {
+    definition: `No answer found try using a simpler search term`,
+    example: ``
+  }
+  await axios.get(answerURL)
+    .then(response => {
+      console.log(response.data.list[0]);
+    
+        slangData = {
+          definition: `${unescape(response.data.list[0].definition)}`,
+          example: `${unescape(response.data.list[0].example)}`,
+          thumbs_down: `${unescape(response.data.list[0].thumbs_down)}`,
+          thumbs_up: `${unescape(response.data.list[0].thumbs_up)}`
+        }
+     
+      return slangData;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  return slangData;
+}
+
 /**
  * getSources - Returns libFlayer feed sources
  * @constructor
