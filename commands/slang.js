@@ -12,6 +12,6 @@ module.exports = {
         var question = encodeURIComponent(args.join(" "));
 
         var slangData = await libFlayer.getSlang(question);
-        message.reply(`${slangData.definition} - ${slangData.example}`);
+        message.reply(`Term: ${slangData.definition}\n Example: ${slangData.example}`);
 	}
 };
