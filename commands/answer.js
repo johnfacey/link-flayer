@@ -12,6 +12,6 @@ module.exports = {
         var question = encodeURIComponent(args.join(" "));
 
         var answerData = await libFlayer.getAnswer(question);
-        message.reply(`Answer: ${answerData.text}\n Source: ${answerData.source}`);
+        message.reply(`Question: ${question} \n\nAnswer: ${answerData.text}\n\n Source: ${answerData.source}`);
 	}
 };
