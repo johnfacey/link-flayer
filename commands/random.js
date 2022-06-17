@@ -15,7 +15,7 @@ module.exports = {
         var feedArray = libFlayer.getFeeds(category);
         var i = Math.floor(Math.random() * (feedArray.length - 0) + 0 );
 		
-        message.reply(`Retrieving: [${catName}](${feedArray[i].link})`);
+        message.reply(`**Retrieving**: [${catName}](${feedArray[i].link})`);
 	}
 };
 
