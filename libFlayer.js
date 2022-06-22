@@ -208,7 +208,7 @@ exports.loadFeeds = function () {
 }
 
 exports.getAnswer = async function (question) {
-
+  
   var answerURL = `https://api.duckduckgo.com/?q=${question}&format=json&pretty=1`;
   console.log(answerURL);
   answerData = {
@@ -279,10 +279,7 @@ exports.getSources = function () {
  * @constructor
  */
 exports.getQuotes =  async function (quote_url) {
-  //const response = await fetch(quote_url);
-  //var data = await response.json();
-  //console.log(data);
-  //return data;
+
 var data = [];
   await axios.get(quote_url)
     .then(response => {
