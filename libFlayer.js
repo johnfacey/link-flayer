@@ -16,6 +16,7 @@ let linkFlayerCats = [];
 var apiKey = process.env.KEY;
 var userBase = process.env.BASE;
 var userTable = process.env.TABLE
+var stockKey = process.env.STOCK_KEY;
 
 token = process.env.TOKEN;
 var base = new Airtable({
@@ -268,7 +269,7 @@ exports.getSlang = async function (question) {
 
 exports.getStock = async function (stock) {
 
-  var answerURL = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stock}&interval=5min&apikey=demo`;
+  var answerURL = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stock}&interval=5min&apikey=${stockKey}`;
   console.log(answerURL);
   stockData = {
     symbol: `Not Found`,
