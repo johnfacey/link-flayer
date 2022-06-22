@@ -266,6 +266,49 @@ exports.getSlang = async function (question) {
   return slangData;
 }
 
+exports.getStock = async function (stock) {
+
+  var answerURL = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stock}&interval=5min&apikey=demo`;
+  console.log(answerURL);
+  stockData = {
+    symbol: `Not Found`,
+    open: ``,
+    high: ``,
+    low: ``,
+    price: ``,
+    volume: ``,
+    latest: ``,
+    previous: ``,
+    change: ``,
+    percent: ``
+  }
+  await axios.get(answerURL)
+    .then(response => {
+      //console.log(response.data.list[0]);
+    
+      stockData = {
+          symbol: `${unescape(response.data["Global Quote"]['01. symbol'])}`,
+          open: `${unescape(response.data["Global Quote"]['02. open'])}`,
+          high: `${unescape(response.data["Global Quote"]['03. high'])}`,
+          low: `${unescape(response.data["Global Quote"]['04. low'])}`,
+          price: `${unescape(response.data["Global Quote"]['05. price'])}`,
+          volume: `${unescape(response.data["Global Quote"]['06. volume'])}`,
+          latest: `${unescape(response.data["Global Quote"]['07. latest trading day'])}`,
+          previous: `${unescape(response.data["Global Quote"]['08. previous close'])}`,
+          change: `${unescape(response.data["Global Quote"]['09. change'])}`,
+          percent: `${unescape(response.data["Global Quote"]['10. change percent'])}`
+        }
+     
+      return stockData;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  return stockData;
+}
+
+
+
 /**
  * getSources - Returns libFlayer feed sources
  * @constructor
