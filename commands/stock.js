@@ -1,12 +1,12 @@
 var libFlayer = require("../libFlayer.js");
 
 module.exports = {
-  name: 'slang',
-  description: 'Slang',
+  name: 'stock',
+  description: 'Stock',
   async execute(message, args) {
     try {
       if (args.length < 1) {
-        message.reply(`Please use in !slang [question] format`);
+        message.reply(`Please use in !stock [question] format`);
         return;
       }
       var question = encodeURIComponent(args.join(" "));
