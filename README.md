@@ -47,3 +47,7 @@ It should be assumed every server will need its own Airtable Base and the coresp
 
 **!stock** - AlphaVantage Stock Search: *!stock IBM*
 
+Example:
+
+![Airtable](./assets/ss1.png)
+
