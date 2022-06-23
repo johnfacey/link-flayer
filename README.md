@@ -43,3 +43,7 @@ It should be assumed every server will need its own Airtable Base and the coresp
 
 * **!answer** - Instant Live Search: *!answer salesforce*
 
+**!slang** - Urban Dictionary Search: *!slang slang*
+
+**!stock** - AlphaVantage Stock Search: *!stock IBM*
+
