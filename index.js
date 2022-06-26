@@ -41,8 +41,12 @@ server.all("/",(req, res) => {
 function keepAlive() {
 	server.listen(PORT, () =>  {
 		console.log("Keep Alive Server Running");
+		try {
         libFlayer.loadFeeds();
 		libFlayer.feedArray = libFlayer.getFeeds();
+	} catch (error) {
+		console.log(error);
+	  }
 	})
 }
 
@@ -78,8 +82,11 @@ client.on('message', message => {
 console.log("Link Flayer Bot Activating");
 keepAlive();
 client.login(token);                    //Load Client Discord Token
-
+try {
 libFlayer.loadFeeds();
+} catch (error) {
+	console.log(error);
+  }
 
 
 

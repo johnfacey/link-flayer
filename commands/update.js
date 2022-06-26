@@ -5,7 +5,11 @@ module.exports = {
     description: 'Get RSS Source Link',
     execute(message, args) {
         message.reply(`Loading Feeds from Sources`);
-        libFlayer.loadFeeds();
+        try {
+            libFlayer.loadFeeds();
+        } catch (error) {
+            console.log(error);
+          }
         feedArray = libFlayer.getFeeds();
 
     }

@@ -168,13 +168,12 @@ exports.loadFeeds = function () {
 
       feeds.forEach(feedBlock => {
         (async () => {
-          try {
+
             const feed = parser.parseURL(feedBlock.link, function (err, feed) {
               if (err) {
                 console.log(err + " " + feedBlock.link);
                 //return;
               }
-              console.log(feed.title);
               
               feed.items.forEach(item => {
                 var foundFeed = false;
@@ -196,9 +195,7 @@ exports.loadFeeds = function () {
               });
 
             })
-          } catch (error) {
-            console.log(error);
-          }
+         
         })().then();
       });
       return;
