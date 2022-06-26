@@ -174,7 +174,7 @@ exports.loadFeeds = function () {
                 console.log(err + " " + feedBlock.link);
                 //return;
               }
-              
+              if (feed.items !== null) {
               feed.items.forEach(item => {
                 var foundFeed = false;
                 linkFlayerMap.forEach(linkFlay => {
@@ -193,6 +193,7 @@ exports.loadFeeds = function () {
                 }
 
               });
+            }
 
             })
          
