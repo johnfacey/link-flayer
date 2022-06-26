@@ -195,6 +195,9 @@ exports.loadFeeds = function () {
 
               });
             }
+            else {
+              console.log('error parsing :' + feedBlock.link);
+            }
 
           })
 
