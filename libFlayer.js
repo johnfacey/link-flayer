@@ -174,8 +174,8 @@ exports.loadFeeds = function () {
               console.log(err + " " + feedBlock.link);
               //return;
             }
-            
-            if (feed !== null) {
+
+            if (feed != undefined) {
               feed.items.forEach(item => {
                 var foundFeed = false;
                 linkFlayerMap.forEach(linkFlay => {
