@@ -123,13 +123,13 @@ exports.loadFeeds = function () {
   linkFlayerCats = [];
 
   base(userTable)
-    .select().firstPage(function(err, records) {
+    .select().firstPage(function (err, records) {
       try {
         records.forEach(function (record) {
           console.log('Retrieved title: ', record.get('title'));
           console.log('Retrieved link:', record.get('link'));
           console.log('Retrieved category:', record.get('category'));
-        
+
 
           var feedData = {
             title: `${unescape(record.get('title'))}`,
@@ -169,12 +169,13 @@ exports.loadFeeds = function () {
       feeds.forEach(feedBlock => {
         (async () => {
 
-            const feed = parser.parseURL(feedBlock.link, function (err, feed) {
-              if (err) {
-                console.log(err + " " + feedBlock.link);
-                //return;
-              }
-              if (feed.items !== null) {
+          const feed = parser.parseURL(feedBlock.link, function (err, feed) {
+            if (err) {
+              console.log(err + " " + feedBlock.link);
+              //return;
+            }
+            
+            if (feed !== null) {
               feed.items.forEach(item => {
                 var foundFeed = false;
                 linkFlayerMap.forEach(linkFlay => {
@@ -195,8 +196,8 @@ exports.loadFeeds = function () {
               });
             }
 
-            })
-         
+          })
+
         })().then();
       });
       return;
@@ -207,7 +208,7 @@ exports.loadFeeds = function () {
 }
 
 exports.getAnswer = async function (question) {
-  
+
   var answerURL = `https://api.duckduckgo.com/?q=${question}&format=json&pretty=1`;
   console.log(answerURL);
   answerData = {
@@ -249,14 +250,14 @@ exports.getSlang = async function (question) {
   await axios.get(answerURL)
     .then(response => {
       console.log(response.data.list[0]);
-    
-        slangData = {
-          definition: `${unescape(response.data.list[0].definition)}`,
-          example: `${unescape(response.data.list[0].example)}`,
-          thumbs_down: `${unescape(response.data.list[0].thumbs_down)}`,
-          thumbs_up: `${unescape(response.data.list[0].thumbs_up)}`
-        }
-     
+
+      slangData = {
+        definition: `${unescape(response.data.list[0].definition)}`,
+        example: `${unescape(response.data.list[0].example)}`,
+        thumbs_down: `${unescape(response.data.list[0].thumbs_down)}`,
+        thumbs_up: `${unescape(response.data.list[0].thumbs_up)}`
+      }
+
       return slangData;
     })
     .catch(error => {
@@ -284,20 +285,20 @@ exports.getStock = async function (stock) {
   await axios.get(answerURL)
     .then(response => {
       //console.log(response.data.list[0]);
-    
+
       stockData = {
-          symbol: `${unescape(response.data["Global Quote"]['01. symbol'])}`,
-          open: `${unescape(response.data["Global Quote"]['02. open'])}`,
-          high: `${unescape(response.data["Global Quote"]['03. high'])}`,
-          low: `${unescape(response.data["Global Quote"]['04. low'])}`,
-          price: `${unescape(response.data["Global Quote"]['05. price'])}`,
-          volume: `${unescape(response.data["Global Quote"]['06. volume'])}`,
-          latest: `${unescape(response.data["Global Quote"]['07. latest trading day'])}`,
-          previous: `${unescape(response.data["Global Quote"]['08. previous close'])}`,
-          change: `${unescape(response.data["Global Quote"]['09. change'])}`,
-          percent: `${unescape(response.data["Global Quote"]['10. change percent'])}`
-        }
-     
+        symbol: `${unescape(response.data["Global Quote"]['01. symbol'])}`,
+        open: `${unescape(response.data["Global Quote"]['02. open'])}`,
+        high: `${unescape(response.data["Global Quote"]['03. high'])}`,
+        low: `${unescape(response.data["Global Quote"]['04. low'])}`,
+        price: `${unescape(response.data["Global Quote"]['05. price'])}`,
+        volume: `${unescape(response.data["Global Quote"]['06. volume'])}`,
+        latest: `${unescape(response.data["Global Quote"]['07. latest trading day'])}`,
+        previous: `${unescape(response.data["Global Quote"]['08. previous close'])}`,
+        change: `${unescape(response.data["Global Quote"]['09. change'])}`,
+        percent: `${unescape(response.data["Global Quote"]['10. change percent'])}`
+      }
+
       return stockData;
     })
     .catch(error => {
@@ -320,21 +321,21 @@ exports.getSources = function () {
  * getQuotes - Returns libFlayer feed quotes
  * @constructor
  */
-exports.getQuotes =  async function (quote_url) {
+exports.getQuotes = async function (quote_url) {
 
-var data = [];
+  var data = [];
   await axios.get(quote_url)
     .then(response => {
       console.log(response.data[0].q);
       console.log(response.data[0].a);
       data = response.data;
-  
+
       return data;
     })
     .catch(error => {
       console.log(error);
     });
-    return data;
+  return data;
 }
 
 /**
