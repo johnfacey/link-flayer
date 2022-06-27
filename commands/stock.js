@@ -6,7 +6,7 @@ module.exports = {
   async execute(message, args) {
     try {
       if (args.length < 1) {
-        message.reply(`Please use in !stock [question] format`);
+        message.reply(`Please use in !stock IBM format`);
         return;
       }
       var question = encodeURIComponent(args.join(" "));

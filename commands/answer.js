@@ -12,7 +12,7 @@ module.exports = {
       var question = encodeURIComponent(args.join(" "));
 
       var answerData = await libFlayer.getAnswer(question);
-      message.reply(`**Question**: ${question} \n\n**Answer**: ${answerData.text}\n\n **Source**: ${answerData.source}`);
+      message.reply(`**Question**: ${decodeURIComponent(question)}\n\n**Answer**: ${answerData.text}\n\n **Source**: ${answerData.source}`);
     } catch (err) {
       message.reply(err.toString());
     }
