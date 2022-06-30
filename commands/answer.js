@@ -1,18 +1,29 @@
-var libFlayer = require("../libFlayer.js");
+var libTrivia = require("../libTrivia.js");
 
 module.exports = {
   name: 'answer',
-  description: 'Answer',
+  description: 'Answer to Play',
   async execute(message, args) {
+    if (args.length < 1) {
+      message.reply(`Please use in !answer [number] format`);
+      return;
+    }
     try {
-      if (args.length < 1) {
-        message.reply(`Please use in !answer [question] format`);
-        return;
-      }
-      var question = encodeURIComponent(args.join(" "));
+     
+      let questions = libTrivia.getQuestions();
+      let thisQuestion = questions[libTrivia.getCurrentQuestion()];
 
-      var answerData = await libFlayer.getAnswer(question);
-      message.reply(`**Question**: ${decodeURIComponent(question)}\n\n**Answer**: ${answerData.text}\n\n **Source**: ${answerData.source}`);
+      let selectedAnswerIndex = parseInt(args[0] - 1);
+      let selectedAnswer = questions[libTrivia.getCurrentQuestion()].randomAnswers[parseInt(selectedAnswerIndex)];
+
+      let correctAnswer = thisQuestion.answers[0];
+
+      if (selectedAnswer == correctAnswer) {
+        message.reply(`**You got it right** - *${thisQuestion.explain}*`);
+      } else {
+        message.reply(`**You got it wrong** - *Try again*`);
+      }
+    
     } catch (err) {
       message.reply(err.toString());
     }

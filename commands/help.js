@@ -5,7 +5,7 @@ module.exports = {
 	description: 'Help',
 	execute(message) {
 		message.reply(
-			`!help - Lists the available commands
+			`**!help** - *Lists the available commands*
 			**!key** - Testing remote Airtable: *!key url*
 			**!categories** - Displays Categories: *!categories*
 			**!search** - Searches the RSS Sources: *!search google*
@@ -15,9 +15,11 @@ module.exports = {
 			**!quote** - Selects a random quote: *!quote*
 			**!random** - Selects a random article: *!random*
 			**!random category** - Selects a random article by category: *!random sports*
-			**!answer** - Instant Live Search: *!answer salesforce*
+			**!search** - Instant Live Search: *!search salesforce*
 			**!slang** - Urban Dictionary Search: *!slang slang*
 			**!stock** - AlphaVantage Stock Search: *!stock IBM*
+			**!play** - Plays a trivia game question: *!play*
+			**!answer** - Answers for a question above: *!answer 1*
 			`
 		);
 	}

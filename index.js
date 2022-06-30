@@ -1,15 +1,19 @@
 const fs = require('fs');
+const path = require('node:path');
 const { prefix } = require('./config.json');
 require('dotenv').config();
 token = process.env.TOKEN;
-
+const { Routes } = require('discord-api-types/v9');
 const { quotes } = require('./quotes.json');
-const Discord = require('discord.js');
-const client = new Discord.Client();
+//const Discord = require('discord.js');Client, Collection, Intents
+const {  Client, Collection, Intents, MessageActionRow, MessageButton } = require('discord.js');
+//const client = new Discord.Client();
+const client = new Client({ intents: [Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS] });
 const PORT = process.env.PORT || 3000;
 const express = require("express");
 const server = express();
 var libFlayer = require("./libFlayer.js");
+var libTrivia = require("./libTrivia.js");
 
 
 let linkFlayerMap = [];
@@ -50,17 +54,45 @@ function keepAlive() {
 	})
 }
 
-client.commands = new Discord.Collection();
+libTrivia.loadTrivia();
 
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
+
+client.commands = new Collection();
+const commandsPath = path.join(__dirname, 'commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+//const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+for (const file of commandFiles) {
+	const filePath = path.join(commandsPath, file);
+	const command = require(filePath);
+	// Set a new item in the Collection
+	// With the key as the command name and the value as the exported module
+	client.commands.set(command.name, command);
+}
+
+/*
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
 }
-
+*/
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
+});
+
+client.on('interactionCreate', async interaction => {
+	//if (!interaction.isCommand()) return;
+	if (!interaction.isSelectMenu()) return;
+
+	let aaa = interaction.values[0];
+	await interaction.reply({ content: 'You picked something', ephemeral: true });
+	
+	try {
+		//await command.execute(interaction);
+	} catch (error) {
+		//console.error(error);
+		//await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+	}
 });
 
 client.on('message', message => {

@@ -210,7 +210,7 @@ exports.loadFeeds = function () {
     });
 }
 
-exports.getAnswer = async function (question) {
+exports.search = async function (question) {
 
   var answerURL = `https://api.duckduckgo.com/?q=${question}&format=json&pretty=1`;
   console.log(answerURL);
