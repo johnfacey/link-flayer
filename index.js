@@ -85,7 +85,7 @@ client.on('interactionCreate', async interaction => {
 	if (!interaction.isSelectMenu()) return;
 
 	let aaa = interaction.values[0];
-	await interaction.reply({ content: 'You picked something', ephemeral: true });
+	await interaction.channel.send({ content: 'You picked something', ephemeral: true });
 	
 	try {
 		//await command.execute(interaction);

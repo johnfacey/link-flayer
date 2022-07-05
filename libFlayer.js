@@ -210,6 +210,27 @@ exports.loadFeeds = function () {
     });
 }
 
+
+exports.weatherAlert = async function (state) {
+
+  var answerURL = `https://api.weather.gov/alerts/active?area=${state}`;
+  console.log(answerURL);
+  answerData = [];
+
+  await axios.get(answerURL)
+    .then(response => {
+      response.data.features.forEach(feature => { 
+        answerData.push(feature);
+      })
+
+      return answerData;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  return answerData;
+}
+
 exports.search = async function (question) {
 
   var answerURL = `https://api.duckduckgo.com/?q=${question}&format=json&pretty=1`;
