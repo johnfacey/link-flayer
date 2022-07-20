@@ -20,6 +20,7 @@ module.exports = {
 			**!stock** - AlphaVantage Stock Search: *!stock IBM*
 			**!play** - Plays a trivia game question: *!play*
 			**!answer** - Answers for a question above: *!answer 1*
+			**!npm** - Gets NPM info from repository: *!npm axios*
 			**!alert** - Gets weather alerts for an area: *!alert TX*
 			`
 		);
