@@ -124,8 +124,8 @@ exports.loadFeeds = function () {
 
   base(userTable)
     .select().firstPage(function (err, records) {
-      try {
-        records.forEach(function (record) {
+      records.forEach(function (record) {
+        try {
           console.log('Retrieved title: ', record.get('title'));
           console.log('Retrieved link:', record.get('link'));
           console.log('Retrieved category:', record.get('category'));
@@ -144,6 +144,7 @@ exports.loadFeeds = function () {
               foundMatch = true;
             }
           });
+
           if (!foundMatch) {
             feeds.push(feedData);
           }
@@ -159,48 +160,47 @@ exports.loadFeeds = function () {
             linkFlayerCats.push(record.get('category'));
           }
 
-
-        });
-      } catch (error) {
-        console.log(error);
-      }
-
+        } catch (error) {
+          console.log(error);
+        }
+      });
 
       feeds.forEach(feedBlock => {
         (async () => {
+          try {
+            const feed = parser.parseURL(feedBlock.link, function (err, feed) {
+              if (err) {
+                console.log(err + " " + feedBlock.link);
+                //return;
+              }
 
-          const feed = parser.parseURL(feedBlock.link, function (err, feed) {
-            if (err) {
-              console.log(err + " " + feedBlock.link);
-              //return;
-            }
+              if (feed != undefined && feed.items != undefined) {
+                feed.items.forEach(item => {
+                  var foundFeed = false;
+                  linkFlayerMap.forEach(linkFlay => {
+                    if (linkFlay.link == item.link) {
+                      foundFeed = true;
+                    }
+                  });
 
-            if (feed != undefined && feed.items != undefined) {
-              feed.items.forEach(item => {
-                var foundFeed = false;
-                linkFlayerMap.forEach(linkFlay => {
-                  if (linkFlay.link == item.link) {
-                    foundFeed = true;
+                  if (!foundFeed) {
+                    var linkData = {
+                      title: `${unescape(item.title)}`,
+                      link: `${unescape(item.link)}`,
+                      category: `${unescape(feedBlock.category)}`
+                    }
+                    linkFlayerMap.push(linkData);
                   }
+
                 });
+              } else {
+                console.log('error parsing :' + feedBlock.link);
+              }
 
-                if (!foundFeed) {
-                  var linkData = {
-                    title: `${unescape(item.title)}`,
-                    link: `${unescape(item.link)}`,
-                    category: `${unescape(feedBlock.category)}`
-                  }
-                  linkFlayerMap.push(linkData);
-                }
-
-              });
-            }
-            else {
-              console.log('error parsing :' + feedBlock.link);
-            }
-
-          })
-
+            })
+          } catch (error) {
+            console.log(error);
+          }
         })().then();
       });
       return;
@@ -219,7 +219,7 @@ exports.weatherAlert = async function (state) {
 
   await axios.get(answerURL)
     .then(response => {
-      response.data.features.forEach(feature => { 
+      response.data.features.forEach(feature => {
         answerData.push(feature);
       })
 
@@ -288,6 +288,30 @@ exports.getSlang = async function (question) {
       console.log(error);
     });
   return slangData;
+}
+
+exports.getNPM = async function (question) {
+
+  var answerURL = `https://www.npmjs.com/search/suggestions?q=${question}`;
+  console.log(answerURL);
+  let returnData = [];
+
+  await axios.get(answerURL)
+    .then(response => {
+      console.log(response.data);
+
+      if (response.data.length != 0) {
+        response.data.forEach(npmResult => {
+          returnData.push(npmResult);
+        });
+      } 
+      
+      return returnData;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  return returnData;
 }
 
 exports.getStock = async function (stock) {

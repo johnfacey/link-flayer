@@ -1,14 +1,28 @@
 const fs = require('fs');
 const path = require('node:path');
-const { prefix } = require('./config.json');
+const {
+	prefix
+} = require('./config.json');
 require('dotenv').config();
 token = process.env.TOKEN;
-const { Routes } = require('discord-api-types/v9');
-const { quotes } = require('./quotes.json');
+const {
+	Routes
+} = require('discord-api-types/v9');
+const {
+	quotes
+} = require('./quotes.json');
 //const Discord = require('discord.js');Client, Collection, Intents
-const {  Client, Collection, Intents, MessageActionRow, MessageButton } = require('discord.js');
+const {
+	Client,
+	Collection,
+	Intents,
+	MessageActionRow,
+	MessageButton
+} = require('discord.js');
 //const client = new Discord.Client();
-const client = new Client({ intents: [Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS] });
+const client = new Client({
+	intents: [Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS]
+});
 const PORT = process.env.PORT || 3000;
 const express = require("express");
 const server = express();
@@ -18,12 +32,12 @@ var libTrivia = require("./libTrivia.js");
 
 let linkFlayerMap = [];
 
-server.all("/",(req, res) => {
+server.all("/", (req, res) => {
 	var htmlOutput = "LinkFlayer Bot is Ready - Sources loading <br />";
 
 	var sources = libFlayer.getSources();
 	sources.forEach(source => {
-		htmlOutput +=`
+		htmlOutput += `
 			<div style='margin-bottom:15px;'>
 
 				<div> Title: ${source.title} </div>
@@ -36,21 +50,21 @@ server.all("/",(req, res) => {
 
 			</div>
 
-			`		
-	  });
-	  res.send(htmlOutput);
+			`
+	});
+	res.send(htmlOutput);
 
 });
 
 function keepAlive() {
-	server.listen(PORT, () =>  {
+	server.listen(PORT, () => {
 		console.log("Keep Alive Server Running");
 		try {
-        libFlayer.loadFeeds();
-		libFlayer.feedArray = libFlayer.getFeeds();
-	} catch (error) {
-		console.log(error);
-	  }
+			libFlayer.loadFeeds();
+			libFlayer.feedArray = libFlayer.getFeeds();
+		} catch (error) {
+			console.log(error);
+		}
 	})
 }
 
@@ -77,7 +91,7 @@ for (const file of commandFiles) {
 }
 */
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
+	console.log(`Logged in as ${client.user.tag}!`);
 });
 
 client.on('interactionCreate', async interaction => {
@@ -85,8 +99,11 @@ client.on('interactionCreate', async interaction => {
 	if (!interaction.isSelectMenu()) return;
 
 	let aaa = interaction.values[0];
-	await interaction.channel.send({ content: 'You picked something', ephemeral: true });
-	
+	await interaction.channel.send({
+		content: 'You picked something',
+		ephemeral: true
+	});
+
 	try {
 		//await command.execute(interaction);
 	} catch (error) {
@@ -113,13 +130,9 @@ client.on('message', message => {
 
 console.log("Link Flayer Bot Activating");
 keepAlive();
-client.login(token);                    //Load Client Discord Token
+client.login(token); //Load Client Discord Token
 try {
-libFlayer.loadFeeds();
+	libFlayer.loadFeeds();
 } catch (error) {
 	console.log(error);
-  }
-
-
-
-
+}
