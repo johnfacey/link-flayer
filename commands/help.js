@@ -22,6 +22,7 @@ module.exports = {
 			**!answer** - Answers for a question above: *!answer 1*
 			**!npm** - Gets NPM info from repository: *!npm axios*
 			**!alert** - Gets weather alerts for an area: *!alert TX*
+			**!calc** - Do math: *!calc 2 + 2*
 			`
 		);
 	}

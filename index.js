@@ -112,7 +112,7 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-client.on('message', message => {
+client.on('messageCreate', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	const args = message.content.slice(prefix.length).trim().split(/ +/);

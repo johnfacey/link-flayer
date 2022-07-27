@@ -44,7 +44,7 @@ module.exports = {
                 message.reply("Error in search");
                 return;
             } else {
-                message.reply(searchString);
+                message.reply('-' + searchString);
             }
 
             if (count == 1) {
