@@ -276,8 +276,8 @@ exports.getSlang = async function (question) {
       console.log(response.data.list[0]);
 
       slangData = {
-        definition: `${unescape(response.data.list[0].definition)}`,
-        example: `${unescape(response.data.list[0].example)}`,
+        definition: `${unescape(response.data.list[0].definition) ? unescape(response.data.list[0].definition) : ''}`,
+        example: `${unescape(response.data.list[0].example) ? unescape(response.data.list[0].example) : ''}`,
         thumbs_down: `${unescape(response.data.list[0].thumbs_down)}`,
         thumbs_up: `${unescape(response.data.list[0].thumbs_up)}`
       }
