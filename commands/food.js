@@ -8,10 +8,8 @@ module.exports = {
 
             var resultArray = await libFlayer.getFood();
             
-            message.reply(`**Retrieving**: 
-            [${resultArray.strMeal} - ${resultArray.strCategory}]
-
-            ${resultArray.strInstructions}
+            message.reply(` 
+            [**${resultArray.strMeal}** - *${resultArray.strCategory}*]
 
             ${resultArray.strSource}
                 
