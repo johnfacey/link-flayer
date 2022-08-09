@@ -23,6 +23,7 @@ module.exports = {
 			**!npm** - Gets NPM info from repository: *!npm axios*
 			**!alert** - Gets weather alerts for an area: *!alert TX*
 			**!calc** - Do math: *!calc 2 + 2*
+			**!food** - Selects a random recipe: *!food*
 			`
 		);
 	}

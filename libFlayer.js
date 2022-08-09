@@ -231,6 +231,47 @@ exports.weatherAlert = async function (state) {
   return answerData;
 }
 
+exports.getFood = async function () {
+
+  var answerURL = `https://www.themealdb.com/api/json/v1/1/random.php`;
+  console.log(answerURL);
+  answerData = {
+    text: `No answer found try using a simpler search term`,
+    source: ``
+  }
+  await axios.get(answerURL)
+    .then(response => {
+      //console.log(response.data.RelatedTopics[0].Text);
+      //console.log(response.data.RelatedTopics[0].FirstURL);
+
+     // if (response.data.meals.length != 0) {
+
+      answerData = {
+        strMeal: `No Data`,
+        strSource: `-`,
+        strInstructions: `-`,
+        strMealThumb: `-`,
+        strCategory: `-`
+      }
+
+        answerData = {
+          strMeal: `${unescape(response.data.meals[0].strMeal)}`,
+          strSource: `${unescape(response.data.meals[0].strSource)}`,
+          strInstructions: `${unescape(response.data.meals[0].strInstructions)}`,
+          strMealThumb: `${unescape(response.data.meals[0].strMealThumb)}`,
+          strCategory: `${unescape(response.data.meals[0].strCategory)}`
+        }
+     // } else {
+       
+      //}
+      return answerData;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  return answerData;
+}
+
 exports.search = async function (question) {
 
   var answerURL = `https://api.duckduckgo.com/?q=${question}&format=json&pretty=1`;
@@ -241,8 +282,8 @@ exports.search = async function (question) {
   }
   await axios.get(answerURL)
     .then(response => {
-      console.log(response.data.RelatedTopics[0].Text);
-      console.log(response.data.RelatedTopics[0].FirstURL);
+      //console.log(response.data.RelatedTopics[0].Text);
+      //console.log(response.data.RelatedTopics[0].FirstURL);
 
       if (response.data.Abstract != "") {
         answerData = {
