@@ -43,23 +43,23 @@ It should be assumed every server will need its own Airtable Base and the coresp
 
 * **!answer** - Instant Live Search: *!answer salesforce*
 
-**!slang** - Urban Dictionary Search: *!slang slang*
+* **!slang** - Urban Dictionary Search: *!slang slang*
 
-**!stock** - AlphaVantage Stock Search: *!stock IBM*
+* **!stock** - AlphaVantage Stock Search: *!stock IBM*
 
-**!play** - Plays a trivia game question: *!play*
+* **!play** - Plays a trivia game question: *!play*
 
-**!answer** - Answers for a question above: *!answer 1*
+* **!answer** - Answers for a question above: *!answer 1*
 
-**!npm** - Gets NPM info from repository: *!npm axios*
+* **!npm** - Gets NPM info from repository: *!npm axios*
 
-**!alert** - Gets weather alerts for an area: *!alert TX*
+* **!alert** - Gets weather alerts for an area: *!alert TX*
 
-**!calc** - Do math: *!calc 2 + 2*
+* **!calc** - Do math: *!calc 2 + 2*
 
-**!food** - Selects a random recipe: *!food*
+* **!food** - Selects a random recipe: *!food*
 
-**!code** - Searches for code snippets: *!code python loop*
+* **!code** - Searches for code snippets: *!code python loop*
 
 Example:
 
