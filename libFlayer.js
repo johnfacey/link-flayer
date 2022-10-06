@@ -355,6 +355,30 @@ exports.getNPM = async function (question) {
   return returnData;
 }
 
+exports.getCode = async function (question) {
+
+  var answerURL = `https://you.com/api/performSearch?q=${question}&page=1&count=10&safeSearch=Moderate&onShoppingPage=false&mkt=en-US&responseFilter=WebPages,Translations,TimeZone,Computation,RelatedSearches&domain=youcode`;
+  console.log(answerURL);
+  let returnData = [];
+
+  await axios.get(answerURL)
+    .then(response => {
+      console.log(response.data);
+
+      if (response.data.length != 0) {
+        response.data.searchResults.mainline.bing_search_results.forEach(codeResult => {
+          returnData.push(codeResult);
+        });
+      } 
+      
+      return returnData;
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  return returnData;
+}
+
 exports.getStock = async function (stock) {
 
   var answerURL = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stock}&interval=5min&apikey=${stockKey}`;
