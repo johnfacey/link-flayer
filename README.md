@@ -47,6 +47,20 @@ It should be assumed every server will need its own Airtable Base and the coresp
 
 **!stock** - AlphaVantage Stock Search: *!stock IBM*
 
+**!play** - Plays a trivia game question: *!play*
+
+**!answer** - Answers for a question above: *!answer 1*
+
+**!npm** - Gets NPM info from repository: *!npm axios*
+
+**!alert** - Gets weather alerts for an area: *!alert TX*
+
+**!calc** - Do math: *!calc 2 + 2*
+
+**!food** - Selects a random recipe: *!food*
+
+**!code** - Searches for code snippets: *!code python loop*
+
 Example:
 
 ![Airtable](./assets/ss1.png)

@@ -24,6 +24,7 @@ module.exports = {
 			**!alert** - Gets weather alerts for an area: *!alert TX*
 			**!calc** - Do math: *!calc 2 + 2*
 			**!food** - Selects a random recipe: *!food*
+			**!code** - Searches for code snippets: *!code python loop*
 			`
 		);
 	}
