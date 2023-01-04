@@ -6,6 +6,14 @@ var jsonfile = require('jsonfile');
 var fs = require('fs');
 var file = ('./feeds.json');
 var Airtable = require('airtable');
+const { Configuration, OpenAIApi } = require('openai');
+const configuration = new Configuration({
+  organization: process.env.OPENAI_ORG,
+  apiKey: process.env.OPENAI_API
+});
+
+const openai = new OpenAIApi(configuration);
+
 
 // Data Structures
 var feeds = [];
@@ -28,6 +36,7 @@ let answerData = {
   text: ``,
   source: ``
 }
+
 
 //Local DB for quotes
 const {
@@ -420,6 +429,23 @@ exports.getStock = async function (stock) {
   return stockData;
 }
 
+/**
+ * getChat - Returns libFlayer feed sources
+ * @constructor
+ */
+
+exports.getChat = async function (question) {
+  const response = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: question,
+    temperature: 0,
+    max_tokens: 100
+  });
+
+  
+  var responseData = response.data.choices[0].text;
+  return responseData;
+}
 
 
 /**

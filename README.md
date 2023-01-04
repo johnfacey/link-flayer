@@ -27,6 +27,8 @@ It should be assumed every server will need its own Airtable Base and the coresp
 	
 * **!help** - Lists the available commands: *!help*
 
+* **!chat** - Queries OpenAI Model: *!chat what is a pizza*
+
 * **!search** - Searches the RSS Sources: *!search google*
 
 * **!get** - Retrieves Search By Index: *!get 25*
