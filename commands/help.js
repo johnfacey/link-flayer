@@ -6,6 +6,7 @@ module.exports = {
 	execute(message) {
 		message.reply(
 			`**!help** - *Lists the available commands*
+			**!chat** - Queries OpenAI: *!chat what is a pizza*
 			**!key** - Testing remote Airtable: *!key url*
 			**!categories** - Displays Categories: *!categories*
 			**!find** - Searches the RSS Sources: *!find google*
