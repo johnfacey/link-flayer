@@ -27,7 +27,6 @@ const PORT = process.env.PORT || 3000;
 const express = require("express");
 const server = express();
 var libFlayer = require("./libFlayer.js");
-var libTrivia = require("./libTrivia.js");
 
 
 let linkFlayerMap = [];
