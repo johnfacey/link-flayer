@@ -23,6 +23,14 @@ It should be assumed every server will need its own Airtable Base and the coresp
 - Running from source *npm run start* or *node index.js*
 - Can be added to any discord server with admin access and this oAuth link https://discord.com/api/oauth2/authorize?client_id=820809725398089779&permissions=2048&scope=bot
 
+
+## Sample config.json
+
+{
+	"prefix": "!",
+	"token": "",
+	"openai_key": "" //used for ChatGPT
+}
 ## Available Commands
 	
 * **!help** - Lists the available commands: *!help*
@@ -63,7 +71,7 @@ It should be assumed every server will need its own Airtable Base and the coresp
 
 * **!code** - Searches for code snippets: *!code python loop*
 
+
 Example:
 
 ![Airtable](./assets/ss1.png)
-
