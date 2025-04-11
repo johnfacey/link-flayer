@@ -82,6 +82,7 @@ Add Link-Flayer to your server using this link:
 | `!calc` | Calculator | `!calc 2 + 2` |
 | `!food` | Random recipe | `!food` |
 | `!code` | Code snippet search | `!code python loop` |
+| `!remind` | Sets a reminder:  | `!remind 2d1h30m Take out the trash* (d=days, h=hours, m=minutes, s=seconds)` |
 
 ## 📸 Preview
 
