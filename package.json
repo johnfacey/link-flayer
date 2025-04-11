@@ -1,12 +1,11 @@
 {
   "name": "link-flayer",
-  "version": "1.1.2",
+  "version": "1.1.6",
   "description": "Discord RSS News Bot",
   "main": "index.js",
   "dependencies": {
     "@discordjs/builders": "^0.15.0",
     "@discordjs/rest": "^0.5.0",
-    "airtable": "^0.11.1",
     "axios": "^0.24.0",
     "chatgpt": "^1.4.0",
     "discord-api-types": "^0.35.0",
@@ -29,7 +28,8 @@
     "stop": "heroku ps:scale web=0",
     "one": "heroku ps:scale web=1",
     "tail": "heroku logs --tail",
-    "local": "heroku local web"
+    "local": "heroku local web",
+    "update": "flyctl version update"
   },
   "author": "John Facey",
   "license": "ISC",

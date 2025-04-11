@@ -5,7 +5,6 @@ let parser = new Parser();
 var jsonfile = require('jsonfile');
 var fs = require('fs');
 var file = ('./feeds.json');
-var Airtable = require('airtable');
 const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
   organization: process.env.OPENAI_ORG,
@@ -27,10 +26,6 @@ var userTable = process.env.TABLE
 var stockKey = process.env.STOCK_KEY;
 
 token = process.env.TOKEN;
-var base = new Airtable({
-  apiKey: apiKey
-}).base(userBase);
-
 //DuckDuckGo related structure
 let answerData = {
   text: ``,
@@ -50,61 +45,6 @@ const {
  * @param {string} link - URL of RSS feed.
  * @param {string} category - Category of RSS feed.
  */
-exports.addSource = function (title, link, category) {
-
-  for (i = 0; i < feeds.length; i++) {
-    if (feeds[i].link == link) {
-      return;
-    }
-  }
-
-  base(userTable).create([{
-    "fields": {
-      "title": title,
-      "link": link,
-      "category": category
-    }
-  }], function (err, record) {
-    if (err) {
-      console.error(err);
-      return;
-    }
-
-    console.log(record.getId());
-
-    var linkData = {
-      title: `${title}`,
-      link: `${link}`,
-      category: `${category}`,
-      id: record.getId()
-    }
-
-    feeds.push(linkData);
-
-  });
-
-}
-
-/**
- * Deletes a new source url to configured Airtable by title
- * @constructor
- * @param {string} title - Title/Name of the RSS feed.
- */
-exports.deleteSource = function (title) {
-  var deleteRecord = "";
-  for (i = 0; i < feeds.length; i++) {
-    if (feeds[i].title == title) {
-      deleteRecord = feeds[i].id;
-    }
-  }
-  base(userTable).destroy(deleteRecord, function (err, deletedRecord) {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    console.log(deletedRecord.id);
-  });
-}
 
 /**
  * Adds a new source url to configured Airtable
@@ -126,55 +66,32 @@ exports.getFeeds = function (feedType) {
   }
 }
 
-exports.loadFeeds = function () {
-  feeds = [];
-  linkFlayerMap = [];
-  linkFlayerCats = [];
-
-  base(userTable)
-    .select().firstPage(function (err, records) {
-      records.forEach(function (record) {
-        try {
-          console.log('Retrieved title: ', record.get('title'));
-          console.log('Retrieved link:', record.get('link'));
-          console.log('Retrieved category:', record.get('category'));
-
-
-          var feedData = {
-            title: `${unescape(record.get('title'))}`,
-            link: `${unescape(record.get('link'))}`,
-            category: `${unescape(record.get('category'))}`,
-            id: record.getId()
-          }
-
-          var foundMatch = false;
-          feeds.forEach(feedBlock => {
-            if (feedBlock.link == feedData.link) {
-              foundMatch = true;
-            }
-          });
-
-          if (!foundMatch) {
-            feeds.push(feedData);
-          }
-
-          let foundCat = false;
-          linkFlayerCats.forEach(cat => {
-            if (cat == record.get('category')) {
-              foundCat = true;
-            }
-          });
-
-          if (!foundCat) {
-            linkFlayerCats.push(record.get('category'));
-          }
-
-        } catch (error) {
-          console.log(error);
+exports.loadLocalFeeds = function() {
+  jsonfile.readFile(file, function (err, obj) {
+    if (err) console.error(err)
+    
+      obj.forEach(element => {
+        
+        var feedData = {
+          title: `${unescape(obj['title'])}`,
+          link: `${unescape(obj['link'])}`,
+          category: `${unescape(obj['category'])}`,
         }
+
+        var foundMatch = false;
+        feeds.forEach(feedBlock => {
+          if (feedBlock.link == feedData.link) {
+            foundMatch = true;
+          }
+        });
+
+        if (!foundMatch) {
+          feeds.push(feedData);
+        }
+
       });
 
-      feeds.forEach(feedBlock => {
+      obj.forEach(feedBlock => {
         (async () => {
           try {
             const feed = parser.parseURL(feedBlock.link, function (err, feed) {
@@ -213,12 +130,11 @@ exports.loadFeeds = function () {
         })().then();
       });
       return;
-      //fetchNextPage();
-    }, function done(error) {
-      console.log(error);
-    });
-}
+    
 
+  })
+
+}
 
 exports.weatherAlert = async function (state) {
 

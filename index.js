@@ -59,15 +59,15 @@ function keepAlive() {
 	server.listen(PORT, () => {
 		console.log("Keep Alive Server Running");
 		try {
-			libFlayer.loadFeeds();
-			libFlayer.feedArray = libFlayer.getFeeds();
+			//libFlayer.loadFeeds();
+			//libFlayer.feedArray = libFlayer.getFeeds();
 		} catch (error) {
 			console.log(error);
 		}
 	})
 }
 
-libTrivia.loadTrivia();
+//libTrivia.loadTrivia();
 
 
 
@@ -131,7 +131,8 @@ console.log("Link Flayer Bot Activating");
 keepAlive();
 client.login(token); //Load Client Discord Token
 try {
-	libFlayer.loadFeeds();
+	//libFlayer.loadFeeds();
+	libFlayer.loadLocalFeeds();
 } catch (error) {
 	console.log(error);
 }

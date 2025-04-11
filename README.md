@@ -24,13 +24,15 @@ It should be assumed every server will need its own Airtable Base and the coresp
 - Can be added to any discord server with admin access and this oAuth link https://discord.com/api/oauth2/authorize?client_id=820809725398089779&permissions=2048&scope=bot
 
 
-## Sample config.json
+## Sample .env for extra params ChatGPT, Airtable
 
-{
-	"prefix": "!",
-	"token": "",
-	"openai_key": "" //used for ChatGPT
-}
+DATABASE_URL=''
+TOKEN=''
+KEY=''
+BASE=''
+TABLE=''
+OPENAI_API=''
+OPENAI_ORG=''
 ## Available Commands
 	
 * **!help** - Lists the available commands: *!help*

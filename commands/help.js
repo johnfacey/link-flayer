@@ -7,7 +7,6 @@ module.exports = {
 		message.reply(
 			`**!help** - *Lists the available commands*
 			**!chat** - Queries OpenAI: *!chat what is a pizza*
-			**!key** - Testing remote Airtable: *!key url*
 			**!categories** - Displays Categories: *!categories*
 			**!find** - Searches the RSS Sources: *!find google*
 			**!get** - Retrieves Search By Index: *!get 25*
@@ -26,6 +25,7 @@ module.exports = {
 			**!calc** - Do math: *!calc 2 + 2*
 			**!food** - Selects a random recipe: *!food*
 			**!code** - Searches for code snippets: *!code python loop*
+			**!remind** - Sets a reminder: *!remind 2d1h30m Take out the trash* (d=days, h=hours, m=minutes, s=seconds)
 			`
 		);
 	}

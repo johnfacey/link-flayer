@@ -1,1 +1,127 @@
-[{"title":"TechCrunchGadgets","link":"https://techcrunch.com/gadgets/feed/\n","category":"tech"},{"title":"CNN Top Stories","link":"http://rss.cnn.com/rss/cnn_topstories.rss","category":"general"},{"title":"ScreenRant","link":"https://screenrant.com/feed","category":"entertainment"},{"title":"BusinessInsider","link":"https://markets.businessinsider.com/rss/news","category":"business"},{"title":"CBSWorldNews","link":"https://www.cbsnews.com/latest/rss/world","category":"general"},{"title":"therecipecritic","link":"https://therecipecritic.com/feed/","category":"food"},{"title":"SalesforceDeveloper","link":"https://developer.salesforce.com/blogs/feed","category":"tech"},{"title":"Yahoo","link":"https://news.google.com/news/rss\"","category":"general"},{"title":"Reddit Front Page","link":"http://www.reddit.com/.rss","category":"general"},{"title":"ESPN","link":"https://www.espn.com/espn/rss/news","category":"sports"},{"title":"Arstechnica","link":"http://feeds.arstechnica.com/arstechnica/index","category":"tech"},{"title":"BloodyDisgusting","link":"https://bloody-disgusting.com/feed","category":"entertainment"},{"title":"TheGuardian","link":"https://www.theguardian.com/world/rss","category":"general"},{"title":"TechCrunchGadgets","link":"https://techcrunch.com/gadgets/feed/\n","category":"tech"},{"title":"CNN Top Stories","link":"http://rss.cnn.com/rss/cnn_topstories.rss","category":"general"},{"title":"ScreenRant","link":"https://screenrant.com/feed","category":"entertainment"},{"title":"BusinessInsider","link":"https://markets.businessinsider.com/rss/news","category":"business"},{"title":"CBSWorldNews","link":"https://www.cbsnews.com/latest/rss/world","category":"general"},{"title":"therecipecritic","link":"https://therecipecritic.com/feed/","category":"food"},{"title":"SalesforceDeveloper","link":"https://developer.salesforce.com/blogs/feed","category":"tech"},{"title":"Yahoo","link":"https://news.google.com/news/rss\"","category":"general"},{"title":"Reddit Front Page","link":"http://www.reddit.com/.rss","category":"general"},{"title":"ESPN","link":"https://www.espn.com/espn/rss/news","category":"sports"},{"title":"Arstechnica","link":"http://feeds.arstechnica.com/arstechnica/index","category":"tech"},{"title":"BloodyDisgusting","link":"https://bloody-disgusting.com/feed","category":"entertainment"},{"title":"TheGuardian","link":"https://www.theguardian.com/world/rss","category":"general"}]
+[
+    {
+        "title": "TechCrunchGadgets",
+        "link": "https://techcrunch.com/gadgets/feed/",
+        "category": "tech"
+    },
+    {
+        "title": "CNN Top Stories",
+        "link": "http://rss.cnn.com/rss/cnn_topstories.rss",
+        "category": "general"
+    },
+    {
+        "title": "ScreenRant",
+        "link": "https://screenrant.com/feed",
+        "category": "entertainment"
+    },
+    {
+        "title": "BusinessInsider",
+        "link": "https://markets.businessinsider.com/rss/news",
+        "category": "business"
+    },
+    {
+        "title": "CBSWorldNews",
+        "link": "https://www.cbsnews.com/latest/rss/world",
+        "category": "general"
+    },
+    {
+        "title": "therecipecritic",
+        "link": "https://therecipecritic.com/feed/",
+        "category": "food"
+    },
+    {
+        "title": "SalesforceDeveloper",
+        "link": "https://developer.salesforce.com/blogs/feed",
+        "category": "tech"
+    },
+    {
+        "title": "Yahoo",
+        "link": "https://news.google.com/news/rss",
+        "category": "general"
+    },
+    {
+        "title": "Reddit Front Page",
+        "link": "http://www.reddit.com/.rss",
+        "category": "general"
+    },
+    {
+        "title": "ESPN",
+        "link": "https://www.espn.com/espn/rss/news",
+        "category": "sports"
+    },
+    {
+        "title": "Arstechnica",
+        "link": "http://feeds.arstechnica.com/arstechnica/index",
+        "category": "tech"
+    },
+    {
+        "title": "BloodyDisgusting",
+        "link": "https://bloody-disgusting.com/feed",
+        "category": "entertainment"
+    },
+    {
+        "title": "TheGuardian",
+        "link": "https://www.theguardian.com/world/rss",
+        "category": "general"
+    },
+    {
+        "title": "TechCrunchGadgets",
+        "link": "https://techcrunch.com/gadgets/feed/\n",
+        "category": "tech"
+    },
+    {
+        "title": "CNN Top Stories",
+        "link": "http://rss.cnn.com/rss/cnn_topstories.rss",
+        "category": "general"
+    },
+    {
+        "title": "ScreenRant",
+        "link": "https://screenrant.com/feed",
+        "category": "entertainment"
+    },
+    {
+        "title": "BusinessInsider",
+        "link": "https://markets.businessinsider.com/rss/news",
+        "category": "business"
+    },
+    {
+        "title": "CBSWorldNews",
+        "link": "https://www.cbsnews.com/latest/rss/world",
+        "category": "general"
+    },
+    {
+        "title": "therecipecritic",
+        "link": "https://therecipecritic.com/feed/",
+        "category": "food"
+    },
+    {
+        "title": "SalesforceDeveloper",
+        "link": "https://developer.salesforce.com/blogs/feed",
+        "category": "tech"
+    },
+    {
+        "title": "Reddit Front Page",
+        "link": "http://www.reddit.com/.rss",
+        "category": "general"
+    },
+    {
+        "title": "ESPN",
+        "link": "https://www.espn.com/espn/rss/news",
+        "category": "sports"
+    },
+    {
+        "title": "Arstechnica",
+        "link": "http://feeds.arstechnica.com/arstechnica/index",
+        "category": "tech"
+    },
+    {
+        "title": "BloodyDisgusting",
+        "link": "https://bloody-disgusting.com/feed",
+        "category": "entertainment"
+    },
+    {
+        "title": "TheGuardian",
+        "link": "https://www.theguardian.com/world/rss",
+        "category": "general"
+    }
+]
