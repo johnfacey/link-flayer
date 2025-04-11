@@ -1,31 +1,42 @@
-# Link-Flayer
+# 🔗 Link-Flayer
 
-**Discord RSS News Bot**
+[![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/api/oauth2/authorize?client_id=820809725398089779&permissions=2048&scope=bot)
+[![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org)
+[![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/link-flayer)
 
-Link Flayer is a Discord Bot designed to provide your Discord server with RSS Newsfeeds Instant Web Searches and more.
+A modern Discord bot that brings RSS newsfeeds, instant web searches, and more to your Discord server! 📰
 
-## Setup
+## ✨ Features
 
-- If installing the npm or source *npm install link-flayer* or *git clone https://github.com/johnfacey/link-flayer.git*
-- Add your token from Discord Bot Interface to the *config.json* [https://discord.com/developers/applications/]
-- Setup has been moved from config file to environment variables to assume bot runs from one instance
+- 📰 RSS News Feed Integration
+- 🔍 Instant Web Searches
+- 🤖 OpenAI ChatGPT Integration
+- 📊 Airtable Database Support
+- 🎮 Interactive Commands
+- 🌦️ Weather Alerts
+- 📈 Stock Information
+- 🎲 Trivia Games
+- 🍳 Recipe Suggestions
+- 💻 Code Snippet Search
 
-## Configure your feeds.json: 
-Each node with a "title", "link", "category" attribute to be used from an Airtable columns. 
-Setting up Airtable for multiple Discord severs still in progress. 
-It should be assumed every server will need its own Airtable Base and the coresponding apiKey, base and table name.
+## 🚀 Quick Start
 
-![Airtable](./assets/airtable.png)
+### Installation
 
-## Usage
+```bash
+# Using npm
+npm install link-flayer
 
-- If using the bot running already from its instance this setup will come later with multiple server profiles. Refer to the above for authorizing a bot to your server.
-- Running from source *npm run start* or *node index.js*
-- Can be added to any discord server with admin access and this oAuth link https://discord.com/api/oauth2/authorize?client_id=820809725398089779&permissions=2048&scope=bot
+# Or from source
+git clone https://github.com/johnfacey/link-flayer.git
+```
 
+### Configuration
 
-## Sample .env for extra params ChatGPT, Airtable
+1. Get your Discord Bot Token from [Discord Developer Portal](https://discord.com/developers/applications/)
+2. Create a `.env` file with the following variables:
 
+```env
 DATABASE_URL=''
 TOKEN=''
 KEY=''
@@ -33,47 +44,49 @@ BASE=''
 TABLE=''
 OPENAI_API=''
 OPENAI_ORG=''
-## Available Commands
-	
-* **!help** - Lists the available commands: *!help*
+```
 
-* **!chat** - Queries OpenAI Model: *!chat what is a pizza*
+### Airtable Setup
 
-* **!search** - Searches the RSS Sources: *!search google*
+Configure your `feeds.json` with nodes containing:
+- `title`
+- `link`
+- `category`
 
-* **!get** - Retrieves Search By Index: *!get 25*
+![Airtable Configuration](./assets/airtable.png)
 
-* **!add** - Add a new RSS Source Feed dynamically: *!add http://www.engadget.com/rss.xml*
+## 🤖 Bot Invitation
 
-* **!update** - Updates all current RSS Feeds: *!update*
+Add Link-Flayer to your server using this link:
+[Invite Link](https://discord.com/api/oauth2/authorize?client_id=820809725398089779&permissions=2048&scope=bot)
 
-* **!quote** - Selects a random quote: *!quote*
+## 📝 Available Commands
 
-* **!random** - Selects a random article: *!random*
+| Command | Description | Example |
+|---------|-------------|---------|
+| `!help` | Lists all available commands | `!help` |
+| `!chat` | Queries OpenAI Model | `!chat what is a pizza` |
+| `!search` | Searches RSS Sources | `!search google` |
+| `!get` | Retrieves Search By Index | `!get 25` |
+| `!add` | Add new RSS Source Feed | `!add http://www.engadget.com/rss.xml` |
+| `!update` | Updates all RSS Feeds | `!update` |
+| `!quote` | Random quote | `!quote` |
+| `!random` | Random article | `!random` |
+| `!random category` | Random article by category | `!random sports` |
+| `!answer` | Instant Live Search | `!answer salesforce` |
+| `!slang` | Urban Dictionary Search | `!slang slang` |
+| `!stock` | Stock Information | `!stock IBM` |
+| `!play` | Trivia game | `!play` |
+| `!npm` | NPM package info | `!npm axios` |
+| `!alert` | Weather alerts | `!alert TX` |
+| `!calc` | Calculator | `!calc 2 + 2` |
+| `!food` | Random recipe | `!food` |
+| `!code` | Code snippet search | `!code python loop` |
 
-* **!random category** - Selects a random article by category: *!random sports*
+## 📸 Preview
 
-* **!answer** - Instant Live Search: *!answer salesforce*
+![Bot Preview](./assets/ss1.png)
 
-* **!slang** - Urban Dictionary Search: *!slang slang*
+## 📄 License
 
-* **!stock** - AlphaVantage Stock Search: *!stock IBM*
-
-* **!play** - Plays a trivia game question: *!play*
-
-* **!answer** - Answers for a question above: *!answer 1*
-
-* **!npm** - Gets NPM info from repository: *!npm axios*
-
-* **!alert** - Gets weather alerts for an area: *!alert TX*
-
-* **!calc** - Do math: *!calc 2 + 2*
-
-* **!food** - Selects a random recipe: *!food*
-
-* **!code** - Searches for code snippets: *!code python loop*
-
-
-Example:
-
-![Airtable](./assets/ss1.png)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
