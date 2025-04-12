@@ -21,7 +21,11 @@ const {
 } = require('discord.js');
 //const client = new Discord.Client();
 const client = new Client({
-	intents: [Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS]
+	intents: [
+		Intents.FLAGS.GUILDS,
+		Intents.FLAGS.GUILD_MESSAGES,
+		Intents.FLAGS.GUILD_MESSAGE_REACTIONS
+	]
 });
 const PORT = process.env.PORT || 3000;
 const express = require("express");
@@ -94,20 +98,70 @@ client.on('ready', () => {
 });
 
 client.on('interactionCreate', async interaction => {
-	//if (!interaction.isCommand()) return;
-	if (!interaction.isSelectMenu()) return;
-
-	let aaa = interaction.values[0];
-	await interaction.channel.send({
-		content: 'You picked something',
-		ephemeral: true
-	});
-
 	try {
-		//await command.execute(interaction);
+		// Handle command interactions
+		if (interaction.isCommand()) {
+			const command = client.commands.get(interaction.commandName);
+			if (!command) return;
+
+			try {
+				await command.execute(interaction);
+			} catch (error) {
+				console.error(error);
+				await interaction.reply({ 
+					content: 'There was an error executing this command!', 
+					ephemeral: true 
+				});
+			}
+		}
+		// Handle button interactions
+		else if (interaction.isButton()) {
+			// Handle button interactions here
+			const command = client.commands.get(interaction.customId.split('_')[0]);
+			if (command) {
+				try {
+					await command.execute(interaction);
+				} catch (error) {
+					console.error(error);
+					await interaction.reply({ 
+						content: 'There was an error handling this button!', 
+						ephemeral: true 
+					});
+				}
+			}
+		}
+		// Handle select menu interactions
+		else if (interaction.isSelectMenu()) {
+			if (!interaction.channel.isTextBased()) {
+				await interaction.reply({
+					content: 'This command can only be used in text channels!',
+					ephemeral: true
+				});
+				return;
+			}
+			
+			// Handle select menu interactions here
+			const command = client.commands.get(interaction.customId.split('_')[0]);
+			if (command) {
+				try {
+					await command.execute(interaction);
+				} catch (error) {
+					console.error(error);
+					await interaction.reply({ 
+						content: 'There was an error handling this selection!', 
+						ephemeral: true 
+					});
+				}
+			}
+		}
 	} catch (error) {
-		//console.error(error);
-		//await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+		console.error('Error in interactionCreate:', error);
+		if (interaction.isRepliable()) {
+			await interaction.reply({ 
+				content: 'There was an error processing this interaction!', 
+				ephemeral: true 
+			});
+		}
 	}
 });
 
