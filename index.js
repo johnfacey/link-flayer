@@ -19,6 +19,7 @@ const {
 	MessageActionRow,
 	MessageButton
 } = require('discord.js');
+const Scheduler = require('./libScheduler.js');
 //const client = new Discord.Client();
 const client = new Client({
 	intents: [
@@ -95,6 +96,13 @@ for (const file of commandFiles) {
 */
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`);
+	
+	// Initialize and start the scheduler
+	const scheduler = new Scheduler(client);
+	scheduler.start();
+	
+	// Store the scheduler instance on the client
+	client.scheduler = scheduler;
 });
 
 client.on('interactionCreate', async interaction => {

@@ -6,11 +6,10 @@ module.exports = {
     execute(message, args) {
         message.reply(`Loading Feeds from Sources`);
         try {
-            libFlayer.loadFeeds();
+            libFlayer.loadLocalFeeds();
         } catch (error) {
             console.log(error);
           }
         feedArray = libFlayer.getFeeds();
-
     }
 };

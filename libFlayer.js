@@ -38,6 +38,32 @@ const {
   quotes
 } = require('./quotes.json');
 
+
+/**
+ * Adds a new source url to configured Airtable
+ * @constructor
+ * @param {string} title - Title/Name of the RSS feed.
+ * @param {string} link - URL of RSS feed.
+ * @param {string} category - Category of RSS feed.
+ */
+exports.addSource = function (title, link, category) {
+
+  for (i = 0; i < feeds.length; i++) {
+    if (feeds[i].link == link) {
+      return;
+    }
+  }
+
+  var linkData = {
+    title: `${title}`,
+    link: `${link}`,
+    category: `${category}`,
+    id: record.getId()
+  }
+
+  feeds.push(linkData);
+
+}
 /**
  * Adds a new source url to configured Airtable
  * @constructor

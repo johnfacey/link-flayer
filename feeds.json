@@ -10,6 +10,16 @@
         "category": "general"
     },
     {
+        "title": "dogingtonpost",
+        "link": "https://www.dogingtonpost.com/feed/",
+        "category": "general"
+    },
+    {
+        "title": "gopetfriendly",
+        "link": "https://feeds.feedburner.com/gopetfriendly",
+        "category": "general"
+    },
+    {
         "title": "ScreenRant",
         "link": "https://screenrant.com/feed",
         "category": "entertainment"
