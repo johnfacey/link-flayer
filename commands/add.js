@@ -21,7 +21,7 @@ module.exports = {
       }
 
       var sources = libFlayer.getSources();
-      libFlayer.loadFeeds();
+      libFlayer.loadLocalFeeds();
     } catch (err) {
       message.reply(err.toString());
     }

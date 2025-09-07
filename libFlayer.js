@@ -3,7 +3,7 @@ let Parser = require('rss-parser');
 const axios = require('axios');
 let parser = new Parser();
 var jsonfile = require('jsonfile');
-var fs = require('fs');
+const fs = require('fs');
 var file = ('./feeds.json');
 const { Configuration, OpenAIApi } = require('openai');
 const configuration = new Configuration({
@@ -38,6 +38,32 @@ const {
   quotes
 } = require('./quotes.json');
 
+/**
+ * Resolves a URL to its final destination by following redirects.
+ * Particularly useful for Google News links.
+ * @param {string} url The URL to resolve.
+ * @returns {Promise<string>} The final destination URL.
+ */
+async function getFinalUrl(url) {
+  // Only try to resolve URLs that look like they need it.
+  if (!url || !url.includes('news.google.com')) {
+    return url;
+  }
+
+  try {
+    // Using GET request as HEAD might not be supported by all servers.
+    // A browser-like user-agent can also help avoid being blocked.
+    const response = await axios.get(url, {
+      maxRedirects: 10,
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36' }
+    });
+    // The final URL is available on the request object after redirects.
+    return response.request.res.responseUrl || url;
+  } catch (error) {
+    console.error(`Error resolving redirected URL for: ${url}. Error: ${error.message}`);
+    return url; // Fallback to the original URL in case of an error.
+  }
+}
 
 /**
  * Adds a new source url to configured Airtable
@@ -47,22 +73,18 @@ const {
  * @param {string} category - Category of RSS feed.
  */
 exports.addSource = function (title, link, category) {
-
-  for (i = 0; i < feeds.length; i++) {
-    if (feeds[i].link == link) {
-      return;
-    }
+  if (feeds.some(feed => feed.link === link)) {
+    return false; // Already exists
   }
 
   var linkData = {
     title: `${title}`,
     link: `${link}`,
     category: `${category}`,
-    id: record.getId()
+    // id: record.getId() // 'record' is not defined in this scope
   }
-
   feeds.push(linkData);
-
+  return true;
 }
 /**
  * Adds a new source url to configured Airtable
@@ -92,74 +114,54 @@ exports.getFeeds = function (feedType) {
   }
 }
 
-exports.loadLocalFeeds = function() {
-  jsonfile.readFile(file, function (err, obj) {
-    if (err) console.error(err)
-    
-      obj.forEach(element => {
-        
-        var feedData = {
-          title: `${unescape(obj['title'])}`,
-          link: `${unescape(obj['link'])}`,
-          category: `${unescape(obj['category'])}`,
-        }
-
-        var foundMatch = false;
-        feeds.forEach(feedBlock => {
-          if (feedBlock.link == feedData.link) {
-            foundMatch = true;
-          }
-        });
-
-        if (!foundMatch) {
-          feeds.push(feedData);
-        }
-
-      });
-
-      obj.forEach(feedBlock => {
-        (async () => {
-          try {
-            const feed = parser.parseURL(feedBlock.link, function (err, feed) {
-              if (err) {
-                console.log(err + " " + feedBlock.link);
-                //return;
-              }
-
-              if (feed != undefined && feed.items != undefined) {
-                feed.items.forEach(item => {
-                  var foundFeed = false;
-                  linkFlayerMap.forEach(linkFlay => {
-                    if (linkFlay.link == item.link) {
-                      foundFeed = true;
-                    }
-                  });
-
-                  if (!foundFeed) {
-                    var linkData = {
-                      title: `${unescape(item.title)}`,
-                      link: `${unescape(item.link)}`,
-                      category: `${unescape(feedBlock.category)}`
-                    }
-                    linkFlayerMap.push(linkData);
-                  }
-
-                });
-              } else {
-                console.log('error parsing :' + feedBlock.link);
-              }
-
-            })
-          } catch (error) {
-            console.log(error);
-          }
-        })().then();
-      });
+exports.loadLocalFeeds = function () {
+  jsonfile.readFile(file, async (err, feedSources) => {
+    if (err) {
+      console.error(err);
       return;
-    
+    }
 
-  })
+    // This part populates the `feeds` array from feeds.json.
+    feedSources.forEach(source => {
+      const feedData = {
+        title: source.title,
+        link: source.link,
+        category: source.category,
+      };
 
+      if (!feeds.some(f => f.link === feedData.link)) {
+        feeds.push(feedData);
+      }
+    });
+
+    // This part loads the articles from each feed source.
+    const promises = feedSources.map(async (feedBlock) => {
+      try {
+        const feed = await parser.parseURL(feedBlock.link);
+        if (feed && feed.items) {
+          for (const item of feed.items) {
+            const finalLink = await getFinalUrl(item.link);
+
+            if (!linkFlayerMap.some(linkFlay => linkFlay.link === finalLink)) {
+              const linkData = {
+                title: item.title,
+                link: finalLink,
+                category: feedBlock.category,
+              };
+              linkFlayerMap.push(linkData);
+            }
+          }
+        } else {
+          console.log('error parsing or empty feed:' + feedBlock.link);
+        }
+      } catch (error) {
+        console.log(`Error processing feed ${feedBlock.link}:`, error.message);
+      }
+    });
+
+    await Promise.all(promises);
+    console.log(`Finished loading all feeds. Total articles: ${linkFlayerMap.length}`);
+  });
 }
 
 exports.weatherAlert = async function (state) {
