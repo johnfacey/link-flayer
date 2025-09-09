@@ -1,5 +1,8 @@
 const { Client } = require('discord.js');
 
+const RANDOM_INTERVAL_MS = 2 * 60 * 60 * 1000; // 2 hours
+const UPDATE_INTERVAL_MS = 24 * 60 * 60 * 1000; // 24 hours
+
 class Scheduler {
     constructor(client) {
         this.client = client;
@@ -11,17 +14,17 @@ class Scheduler {
 
     getTimeUntilNextRandom() {
         if (!this.lastRandomRun) return 'Not started yet';
-        const nextRun = new Date(this.lastRandomRun.getTime() + 1800000);
+        const nextRun = new Date(this.lastRandomRun.getTime() + RANDOM_INTERVAL_MS);
         const now = new Date();
         const diff = nextRun - now;
-        const minutes = Math.floor(diff / 60000);
-        const seconds = Math.floor((diff % 60000) / 1000);
-        return `${minutes} minutes and ${seconds} seconds`;
+        const hours = Math.floor(diff / 3600000);
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        return `${hours} hours and ${minutes} minutes`;
     }
 
     getTimeUntilNextUpdate() {
         if (!this.lastUpdateRun) return 'Not started yet';
-        const nextRun = new Date(this.lastUpdateRun.getTime() + 86400000);
+        const nextRun = new Date(this.lastUpdateRun.getTime() + UPDATE_INTERVAL_MS);
         const now = new Date();
         const diff = nextRun - now;
         const hours = Math.floor(diff / 3600000);
@@ -30,7 +33,7 @@ class Scheduler {
     }
 
     start() {
-        // Run random command every 30 minutes (1800000 milliseconds)
+        // Run random command every 2 hours
         this.randomInterval = setInterval(async () => {
             try {
                 this.lastRandomRun = new Date();
@@ -72,9 +75,9 @@ class Scheduler {
             } catch (error) {
                 console.error('Error in random scheduled task:', error);
             }
-        }, 1800000); // 30 minutes in milliseconds
+        }, RANDOM_INTERVAL_MS);
 
-        // Run update command once a day (86400000 milliseconds)
+        // Run update command once a day
         this.updateInterval = setInterval(async () => {
             try {
                 this.lastUpdateRun = new Date();
@@ -116,7 +119,7 @@ class Scheduler {
             } catch (error) {
                 console.error('Error in update scheduled task:', error);
             }
-        }, 86400000); // 24 hours in milliseconds
+        }, UPDATE_INTERVAL_MS);
 
         // Set initial run times
         this.lastRandomRun = new Date();
