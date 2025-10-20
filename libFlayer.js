@@ -139,7 +139,9 @@ exports.loadLocalFeeds = function () {
       try {
         const feed = await parser.parseURL(feedBlock.link);
         if (feed && feed.items) {
-          for (const item of feed.items) {
+          // Process only the latest 8 items to get recent stories and avoid duplicates.
+          const latestItems = feed.items.slice(0, 8);
+          for (const item of latestItems) {
             const finalLink = await getFinalUrl(item.link);
 
             if (!linkFlayerMap.some(linkFlay => linkFlay.link === finalLink)) {
