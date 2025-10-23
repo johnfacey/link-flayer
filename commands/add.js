@@ -20,8 +20,7 @@ module.exports = {
         message.reply(`${title} already exists in the list of RSS sources`);
       }
 
-      var sources = libFlayer.getSources();
-      libFlayer.loadLocalFeeds();
+      libFlayer.loadLocalFeeds(); // Reload feeds to include the new one
     } catch (err) {
       message.reply(err.toString());
     }

@@ -1,4 +1,5 @@
 var libFlayer = require("../libFlayer.js");
+const Fuse = require('fuse.js');
 
 module.exports = {
     name: 'find',
@@ -10,52 +11,44 @@ module.exports = {
                 return;
             }
 
-            var search = args.join(" ");
-            var found = false;
+            const search = args.join(" ");
+            const feedArray = libFlayer.getFeeds();
 
-            let i = 0;
-            let iSave = 0
-            let count = 0;
-            var feedArray = libFlayer.getFeeds();
-            var searchString = "";
-            var foundError = false;
-            feedArray.forEach(linkFlay => {
-                try {
-                    if (linkFlay.title.toLowerCase().indexOf(search.toLowerCase()) > -1) {
-                        iSave = i;
-                        found = true;
-                        console.log(linkFlay.title);
-                        searchString += `Use !get ${i} to view: ${linkFlay.title} \n`;
-                        count++;
-                        if (count > 5) {
-                            message.reply(searchString);
-                            searchString = "";
-                        }
-                    }
-                    i++;
-                } catch (error) {
-                    foundError = true;
-                    console.log(error);
-                }
+            // Options for fuzzy searching
+            const options = {
+                includeScore: true,
+                keys: ['title', 'content'],
+                threshold: 0.4, // Adjust this for more/less strict matching
+            };
 
-            });
+            const fuse = new Fuse(feedArray, options);
+            const results = fuse.search(search);
 
-            if (foundError) {
-                message.reply("Error in search");
-                return;
-            } else {
-                message.reply('-' + searchString);
-            }
+            // Map results to the desired output format
+            const searchResults = results.map(result => {
+                // The original item is in result.item, its original index is result.refIndex
+                return `Use !get ${result.refIndex} to view: ${result.item.title}`;
+            }).slice(0, 15); // Limit to the top 15 results to avoid spam
 
-            if (count == 1) {
-                //message.channel.send('Displaying 1 result');
-                //message.channel.send('!get '+iSave);
-            }
-
-            if (!found) {
+            if (searchResults.length === 0) {
                 message.reply(`No results found for: ${search}`);
+            } else {
+                // Discord has a 2000 character limit per message.
+                // This splits the results into multiple messages if needed.
+                // And adds a header to the search results.
+                let header = `Found ${searchResults.length} results for "${search}":\n`;
+                let response = "";
+                for (const result of searchResults) {
+                    if (response.length + result.length > 1900) {
+                        message.reply(response);
+                        response = "";
+                    }
+                    response += result + "\n";
+                }
+                if (response) {
+                    message.reply(header + response);
+                }
             }
-
         } catch (error) {
             message.reply(error.toString());
         }

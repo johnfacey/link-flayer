@@ -84,6 +84,13 @@ exports.addSource = function (title, link, category) {
     // id: record.getId() // 'record' is not defined in this scope
   }
   feeds.push(linkData);
+
+  // Persist the new source to feeds.json
+  jsonfile.writeFile(file, feeds, { spaces: 4 }, (err) => {
+    if (err) {
+      console.error('Error writing to feeds.json:', err);
+    }
+  });
   return true;
 }
 /**
@@ -115,6 +122,9 @@ exports.getFeeds = function (feedType) {
 }
 
 exports.loadLocalFeeds = function () {
+  // Clear the existing articles to prevent duplicates from old fetches
+  linkFlayerMap = [];
+
   jsonfile.readFile(file, async (err, feedSources) => {
     if (err) {
       console.error(err);
@@ -149,6 +159,7 @@ exports.loadLocalFeeds = function () {
                 title: item.title,
                 link: finalLink,
                 category: feedBlock.category,
+                content: item.contentSnippet || item.content || ''
               };
               linkFlayerMap.push(linkData);
             }
