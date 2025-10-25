@@ -61,8 +61,8 @@ server.all("/", (req, res) => {
 });
 
 function keepAlive() {
-	server.listen(PORT, () => {
-		console.log("Keep Alive Server Running");
+	server.listen(PORT, '0.0.0.0', () => {
+		console.log(`Keep Alive Server Running on 0.0.0.0:${PORT}`);
 		try {
 			//libFlayer.loadFeeds();
 			//libFlayer.feedArray = libFlayer.getFeeds();
